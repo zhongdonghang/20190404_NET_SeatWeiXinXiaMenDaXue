@@ -1,0 +1,1878 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://juneberry.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://juneberry.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://juneberry.org/">
+      <s:element name="GetUserInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="studentNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserInfoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MySoapHeader" type="tns:MySoapHeader" />
+      <s:complexType name="MySoapHeader">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PassWord" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SchoolNum" type="s:string" />
+        </s:sequence>
+        <s:anyAttribute />
+      </s:complexType>
+      <s:element name="GetUserNowState">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="studentNo" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="isCheckCode" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserNowStateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserNowStateResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="loginId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CheckUserResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllRoomInfo">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetAllRoomInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllRoomInfoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllRoomNowState">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetAllRoomNowStateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllRoomNowStateResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSingleRoomOpenState">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="roomNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="datetime" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSingleRoomOpenStateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSingleRoomOpenStateResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRoomSeatLayout">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="roomNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRoomSeatLayoutResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRoomSeatLayoutResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRoomBesapeakState">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="roomNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="bespeakTime" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRoomBesapeakStateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRoomBesapeakStateResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEnterOutLog">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="studentNo" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="pageIndex" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="pageSize" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEnterOutLogResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetEnterOutLogResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBesapsekLog">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="studentNo" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="pageIndex" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="pageSize" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBesapsekLogResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetBesapsekLogResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBlacklist">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="studentNo" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="pageIndex" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="pageSize" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBlacklistResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetBlacklistResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetViolationLog">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="studentNo" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="pageIndex" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="pageSize" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetViolationLogResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetViolationLogResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOftenSeat">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="studentNo" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="seatCount" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="dayCount" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOftenSeatResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetOftenSeatResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRandomSeat">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="roomNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRandomSeatResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRandomSeatResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SubmitBesapeskSeat">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="seatNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="roomNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="studentNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="besapeakTime" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="isNowBesapeak" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SubmitBesapeskSeatResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SubmitBesapeskSeatResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancelBesapeak">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="bespeakId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancelBesapeakResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CancelBesapeakResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ShortLeave">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="studentNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ShortLeaveResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ShortLeaveResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReleaseSeat">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="studentNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReleaseSeatResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ReleaseSeatResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancelWait">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="studentNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancelWaitResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CancelWaitResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QRcodeOperation">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="codeStr" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="studentNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QRcodeOperationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="QRcodeOperationResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QRcodeSeatInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="codeStr" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QRcodeSeatInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="QRcodeSeatInfoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSchoolList">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetSchoolListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSchoolListResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancelBesapeakByCardNo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="cardNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="bespeakDate" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancelBesapeakByCardNoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CancelBesapeakByCardNoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ChangeSeat">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="seatNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="roomNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="cardNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ChangeSeatResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ChangeSeatResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserInfo_WeiXin">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="studentNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserInfo_WeiXinResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserInfo_WeiXinResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ComeBack">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="studentNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ComeBackResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ComeBackResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SelectSeat">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="studentNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="seatNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="roomNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SelectSeatResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SelectSeatResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DelayTime">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="studentNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DelayTimeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DelayTimeResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="WaitSeat">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="studentNo_A" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="studentNo_B" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="seatNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="WaitSeatResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="WaitSeatResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConfirmSeat">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="besapeakNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConfirmSeatResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConfirmSeatResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCanBespeakRoomInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="date" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCanBespeakRoomInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCanBespeakRoomInfoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSeatBespeakInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="seatNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="roomNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="bespeakTime" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSeatBespeakInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSeatBespeakInfoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSeatNowStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="seatNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="roomNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="studentNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSeatNowStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSeatNowStatusResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckSeat">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="studentNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckSeatResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CheckSeatResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMessageSeatStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="seatNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="roomNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMessageSeatStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetMessageSeatStatusResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SelectSeatByMessager">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="studentNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="seatNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="roomNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SelectSeatByMessagerResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SelectSeatByMessagerResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLibraryNowState">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetLibraryNowStateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLibraryNowStateResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCanBespeakRoom">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetCanBespeakRoomResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCanBespeakRoomResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBespeakDate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="roomNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBespeakDateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetBespeakDateResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetUserInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetUserInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserInfoMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetUserNowStateSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserNowState" />
+  </wsdl:message>
+  <wsdl:message name="GetUserNowStateSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserNowStateResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserNowStateMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="CheckUserSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckUser" />
+  </wsdl:message>
+  <wsdl:message name="CheckUserSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="CheckUserMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetAllRoomInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllRoomInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetAllRoomInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllRoomInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllRoomInfoMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetAllRoomNowStateSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllRoomNowState" />
+  </wsdl:message>
+  <wsdl:message name="GetAllRoomNowStateSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllRoomNowStateResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllRoomNowStateMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetSingleRoomOpenStateSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSingleRoomOpenState" />
+  </wsdl:message>
+  <wsdl:message name="GetSingleRoomOpenStateSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSingleRoomOpenStateResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSingleRoomOpenStateMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetRoomSeatLayoutSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRoomSeatLayout" />
+  </wsdl:message>
+  <wsdl:message name="GetRoomSeatLayoutSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRoomSeatLayoutResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetRoomSeatLayoutMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetRoomBesapeakStateSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRoomBesapeakState" />
+  </wsdl:message>
+  <wsdl:message name="GetRoomBesapeakStateSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRoomBesapeakStateResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetRoomBesapeakStateMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetEnterOutLogSoapIn">
+    <wsdl:part name="parameters" element="tns:GetEnterOutLog" />
+  </wsdl:message>
+  <wsdl:message name="GetEnterOutLogSoapOut">
+    <wsdl:part name="parameters" element="tns:GetEnterOutLogResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetEnterOutLogMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetBesapsekLogSoapIn">
+    <wsdl:part name="parameters" element="tns:GetBesapsekLog" />
+  </wsdl:message>
+  <wsdl:message name="GetBesapsekLogSoapOut">
+    <wsdl:part name="parameters" element="tns:GetBesapsekLogResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetBesapsekLogMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetBlacklistSoapIn">
+    <wsdl:part name="parameters" element="tns:GetBlacklist" />
+  </wsdl:message>
+  <wsdl:message name="GetBlacklistSoapOut">
+    <wsdl:part name="parameters" element="tns:GetBlacklistResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetBlacklistMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetViolationLogSoapIn">
+    <wsdl:part name="parameters" element="tns:GetViolationLog" />
+  </wsdl:message>
+  <wsdl:message name="GetViolationLogSoapOut">
+    <wsdl:part name="parameters" element="tns:GetViolationLogResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetViolationLogMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetOftenSeatSoapIn">
+    <wsdl:part name="parameters" element="tns:GetOftenSeat" />
+  </wsdl:message>
+  <wsdl:message name="GetOftenSeatSoapOut">
+    <wsdl:part name="parameters" element="tns:GetOftenSeatResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetOftenSeatMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetRandomSeatSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRandomSeat" />
+  </wsdl:message>
+  <wsdl:message name="GetRandomSeatSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRandomSeatResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetRandomSeatMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="SubmitBesapeskSeatSoapIn">
+    <wsdl:part name="parameters" element="tns:SubmitBesapeskSeat" />
+  </wsdl:message>
+  <wsdl:message name="SubmitBesapeskSeatSoapOut">
+    <wsdl:part name="parameters" element="tns:SubmitBesapeskSeatResponse" />
+  </wsdl:message>
+  <wsdl:message name="SubmitBesapeskSeatMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="CancelBesapeakSoapIn">
+    <wsdl:part name="parameters" element="tns:CancelBesapeak" />
+  </wsdl:message>
+  <wsdl:message name="CancelBesapeakSoapOut">
+    <wsdl:part name="parameters" element="tns:CancelBesapeakResponse" />
+  </wsdl:message>
+  <wsdl:message name="CancelBesapeakMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="ShortLeaveSoapIn">
+    <wsdl:part name="parameters" element="tns:ShortLeave" />
+  </wsdl:message>
+  <wsdl:message name="ShortLeaveSoapOut">
+    <wsdl:part name="parameters" element="tns:ShortLeaveResponse" />
+  </wsdl:message>
+  <wsdl:message name="ShortLeaveMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="ReleaseSeatSoapIn">
+    <wsdl:part name="parameters" element="tns:ReleaseSeat" />
+  </wsdl:message>
+  <wsdl:message name="ReleaseSeatSoapOut">
+    <wsdl:part name="parameters" element="tns:ReleaseSeatResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReleaseSeatMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="CancelWaitSoapIn">
+    <wsdl:part name="parameters" element="tns:CancelWait" />
+  </wsdl:message>
+  <wsdl:message name="CancelWaitSoapOut">
+    <wsdl:part name="parameters" element="tns:CancelWaitResponse" />
+  </wsdl:message>
+  <wsdl:message name="CancelWaitMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="QRcodeOperationSoapIn">
+    <wsdl:part name="parameters" element="tns:QRcodeOperation" />
+  </wsdl:message>
+  <wsdl:message name="QRcodeOperationSoapOut">
+    <wsdl:part name="parameters" element="tns:QRcodeOperationResponse" />
+  </wsdl:message>
+  <wsdl:message name="QRcodeOperationMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="QRcodeSeatInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:QRcodeSeatInfo" />
+  </wsdl:message>
+  <wsdl:message name="QRcodeSeatInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:QRcodeSeatInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="QRcodeSeatInfoMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetSchoolListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSchoolList" />
+  </wsdl:message>
+  <wsdl:message name="GetSchoolListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSchoolListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSchoolListMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="CancelBesapeakByCardNoSoapIn">
+    <wsdl:part name="parameters" element="tns:CancelBesapeakByCardNo" />
+  </wsdl:message>
+  <wsdl:message name="CancelBesapeakByCardNoSoapOut">
+    <wsdl:part name="parameters" element="tns:CancelBesapeakByCardNoResponse" />
+  </wsdl:message>
+  <wsdl:message name="CancelBesapeakByCardNoMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="ChangeSeatSoapIn">
+    <wsdl:part name="parameters" element="tns:ChangeSeat" />
+  </wsdl:message>
+  <wsdl:message name="ChangeSeatSoapOut">
+    <wsdl:part name="parameters" element="tns:ChangeSeatResponse" />
+  </wsdl:message>
+  <wsdl:message name="ChangeSeatMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetUserInfo_WeiXinSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserInfo_WeiXin" />
+  </wsdl:message>
+  <wsdl:message name="GetUserInfo_WeiXinSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserInfo_WeiXinResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserInfo_WeiXinMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="ComeBackSoapIn">
+    <wsdl:part name="parameters" element="tns:ComeBack" />
+  </wsdl:message>
+  <wsdl:message name="ComeBackSoapOut">
+    <wsdl:part name="parameters" element="tns:ComeBackResponse" />
+  </wsdl:message>
+  <wsdl:message name="ComeBackMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="SelectSeatSoapIn">
+    <wsdl:part name="parameters" element="tns:SelectSeat" />
+  </wsdl:message>
+  <wsdl:message name="SelectSeatSoapOut">
+    <wsdl:part name="parameters" element="tns:SelectSeatResponse" />
+  </wsdl:message>
+  <wsdl:message name="SelectSeatMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="DelayTimeSoapIn">
+    <wsdl:part name="parameters" element="tns:DelayTime" />
+  </wsdl:message>
+  <wsdl:message name="DelayTimeSoapOut">
+    <wsdl:part name="parameters" element="tns:DelayTimeResponse" />
+  </wsdl:message>
+  <wsdl:message name="DelayTimeMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="WaitSeatSoapIn">
+    <wsdl:part name="parameters" element="tns:WaitSeat" />
+  </wsdl:message>
+  <wsdl:message name="WaitSeatSoapOut">
+    <wsdl:part name="parameters" element="tns:WaitSeatResponse" />
+  </wsdl:message>
+  <wsdl:message name="WaitSeatMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="ConfirmSeatSoapIn">
+    <wsdl:part name="parameters" element="tns:ConfirmSeat" />
+  </wsdl:message>
+  <wsdl:message name="ConfirmSeatSoapOut">
+    <wsdl:part name="parameters" element="tns:ConfirmSeatResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConfirmSeatMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetCanBespeakRoomInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCanBespeakRoomInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetCanBespeakRoomInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCanBespeakRoomInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCanBespeakRoomInfoMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetSeatBespeakInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSeatBespeakInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetSeatBespeakInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSeatBespeakInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSeatBespeakInfoMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetSeatNowStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSeatNowStatus" />
+  </wsdl:message>
+  <wsdl:message name="GetSeatNowStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSeatNowStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSeatNowStatusMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="CheckSeatSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckSeat" />
+  </wsdl:message>
+  <wsdl:message name="CheckSeatSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckSeatResponse" />
+  </wsdl:message>
+  <wsdl:message name="CheckSeatMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetMessageSeatStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:GetMessageSeatStatus" />
+  </wsdl:message>
+  <wsdl:message name="GetMessageSeatStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:GetMessageSeatStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetMessageSeatStatusMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="SelectSeatByMessagerSoapIn">
+    <wsdl:part name="parameters" element="tns:SelectSeatByMessager" />
+  </wsdl:message>
+  <wsdl:message name="SelectSeatByMessagerSoapOut">
+    <wsdl:part name="parameters" element="tns:SelectSeatByMessagerResponse" />
+  </wsdl:message>
+  <wsdl:message name="SelectSeatByMessagerMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetLibraryNowStateSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLibraryNowState" />
+  </wsdl:message>
+  <wsdl:message name="GetLibraryNowStateSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLibraryNowStateResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetLibraryNowStateMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetCanBespeakRoomSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCanBespeakRoom" />
+  </wsdl:message>
+  <wsdl:message name="GetCanBespeakRoomSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCanBespeakRoomResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCanBespeakRoomMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetBespeakDateSoapIn">
+    <wsdl:part name="parameters" element="tns:GetBespeakDate" />
+  </wsdl:message>
+  <wsdl:message name="GetBespeakDateSoapOut">
+    <wsdl:part name="parameters" element="tns:GetBespeakDateResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetBespeakDateMySoapHeader">
+    <wsdl:part name="MySoapHeader" element="tns:MySoapHeader" />
+  </wsdl:message>
+  <wsdl:portType name="MobileAppWebServiceSoap">
+    <wsdl:operation name="GetUserInfo">
+      <wsdl:input message="tns:GetUserInfoSoapIn" />
+      <wsdl:output message="tns:GetUserInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserNowState">
+      <wsdl:input message="tns:GetUserNowStateSoapIn" />
+      <wsdl:output message="tns:GetUserNowStateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckUser">
+      <wsdl:input message="tns:CheckUserSoapIn" />
+      <wsdl:output message="tns:CheckUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllRoomInfo">
+      <wsdl:input message="tns:GetAllRoomInfoSoapIn" />
+      <wsdl:output message="tns:GetAllRoomInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllRoomNowState">
+      <wsdl:input message="tns:GetAllRoomNowStateSoapIn" />
+      <wsdl:output message="tns:GetAllRoomNowStateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSingleRoomOpenState">
+      <wsdl:input message="tns:GetSingleRoomOpenStateSoapIn" />
+      <wsdl:output message="tns:GetSingleRoomOpenStateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRoomSeatLayout">
+      <wsdl:input message="tns:GetRoomSeatLayoutSoapIn" />
+      <wsdl:output message="tns:GetRoomSeatLayoutSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRoomBesapeakState">
+      <wsdl:input message="tns:GetRoomBesapeakStateSoapIn" />
+      <wsdl:output message="tns:GetRoomBesapeakStateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEnterOutLog">
+      <wsdl:input message="tns:GetEnterOutLogSoapIn" />
+      <wsdl:output message="tns:GetEnterOutLogSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBesapsekLog">
+      <wsdl:input message="tns:GetBesapsekLogSoapIn" />
+      <wsdl:output message="tns:GetBesapsekLogSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBlacklist">
+      <wsdl:input message="tns:GetBlacklistSoapIn" />
+      <wsdl:output message="tns:GetBlacklistSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetViolationLog">
+      <wsdl:input message="tns:GetViolationLogSoapIn" />
+      <wsdl:output message="tns:GetViolationLogSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOftenSeat">
+      <wsdl:input message="tns:GetOftenSeatSoapIn" />
+      <wsdl:output message="tns:GetOftenSeatSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRandomSeat">
+      <wsdl:input message="tns:GetRandomSeatSoapIn" />
+      <wsdl:output message="tns:GetRandomSeatSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SubmitBesapeskSeat">
+      <wsdl:input message="tns:SubmitBesapeskSeatSoapIn" />
+      <wsdl:output message="tns:SubmitBesapeskSeatSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelBesapeak">
+      <wsdl:input message="tns:CancelBesapeakSoapIn" />
+      <wsdl:output message="tns:CancelBesapeakSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ShortLeave">
+      <wsdl:input message="tns:ShortLeaveSoapIn" />
+      <wsdl:output message="tns:ShortLeaveSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReleaseSeat">
+      <wsdl:input message="tns:ReleaseSeatSoapIn" />
+      <wsdl:output message="tns:ReleaseSeatSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelWait">
+      <wsdl:input message="tns:CancelWaitSoapIn" />
+      <wsdl:output message="tns:CancelWaitSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QRcodeOperation">
+      <wsdl:input message="tns:QRcodeOperationSoapIn" />
+      <wsdl:output message="tns:QRcodeOperationSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QRcodeSeatInfo">
+      <wsdl:input message="tns:QRcodeSeatInfoSoapIn" />
+      <wsdl:output message="tns:QRcodeSeatInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSchoolList">
+      <wsdl:input message="tns:GetSchoolListSoapIn" />
+      <wsdl:output message="tns:GetSchoolListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelBesapeakByCardNo">
+      <wsdl:input message="tns:CancelBesapeakByCardNoSoapIn" />
+      <wsdl:output message="tns:CancelBesapeakByCardNoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ChangeSeat">
+      <wsdl:input message="tns:ChangeSeatSoapIn" />
+      <wsdl:output message="tns:ChangeSeatSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInfo_WeiXin">
+      <wsdl:input message="tns:GetUserInfo_WeiXinSoapIn" />
+      <wsdl:output message="tns:GetUserInfo_WeiXinSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ComeBack">
+      <wsdl:input message="tns:ComeBackSoapIn" />
+      <wsdl:output message="tns:ComeBackSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectSeat">
+      <wsdl:input message="tns:SelectSeatSoapIn" />
+      <wsdl:output message="tns:SelectSeatSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DelayTime">
+      <wsdl:input message="tns:DelayTimeSoapIn" />
+      <wsdl:output message="tns:DelayTimeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="WaitSeat">
+      <wsdl:input message="tns:WaitSeatSoapIn" />
+      <wsdl:output message="tns:WaitSeatSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmSeat">
+      <wsdl:input message="tns:ConfirmSeatSoapIn" />
+      <wsdl:output message="tns:ConfirmSeatSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCanBespeakRoomInfo">
+      <wsdl:input message="tns:GetCanBespeakRoomInfoSoapIn" />
+      <wsdl:output message="tns:GetCanBespeakRoomInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSeatBespeakInfo">
+      <wsdl:input message="tns:GetSeatBespeakInfoSoapIn" />
+      <wsdl:output message="tns:GetSeatBespeakInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSeatNowStatus">
+      <wsdl:input message="tns:GetSeatNowStatusSoapIn" />
+      <wsdl:output message="tns:GetSeatNowStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckSeat">
+      <wsdl:input message="tns:CheckSeatSoapIn" />
+      <wsdl:output message="tns:CheckSeatSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMessageSeatStatus">
+      <wsdl:input message="tns:GetMessageSeatStatusSoapIn" />
+      <wsdl:output message="tns:GetMessageSeatStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectSeatByMessager">
+      <wsdl:input message="tns:SelectSeatByMessagerSoapIn" />
+      <wsdl:output message="tns:SelectSeatByMessagerSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLibraryNowState">
+      <wsdl:input message="tns:GetLibraryNowStateSoapIn" />
+      <wsdl:output message="tns:GetLibraryNowStateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCanBespeakRoom">
+      <wsdl:input message="tns:GetCanBespeakRoomSoapIn" />
+      <wsdl:output message="tns:GetCanBespeakRoomSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBespeakDate">
+      <wsdl:input message="tns:GetBespeakDateSoapIn" />
+      <wsdl:output message="tns:GetBespeakDateSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="MobileAppWebServiceSoap" type="tns:MobileAppWebServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetUserInfo">
+      <soap:operation soapAction="http://juneberry.org/GetUserInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetUserInfoMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserNowState">
+      <soap:operation soapAction="http://juneberry.org/GetUserNowState" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetUserNowStateMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckUser">
+      <soap:operation soapAction="http://juneberry.org/CheckUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:CheckUserMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllRoomInfo">
+      <soap:operation soapAction="http://juneberry.org/GetAllRoomInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetAllRoomInfoMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllRoomNowState">
+      <soap:operation soapAction="http://juneberry.org/GetAllRoomNowState" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetAllRoomNowStateMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSingleRoomOpenState">
+      <soap:operation soapAction="http://juneberry.org/GetSingleRoomOpenState" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetSingleRoomOpenStateMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRoomSeatLayout">
+      <soap:operation soapAction="http://juneberry.org/GetRoomSeatLayout" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetRoomSeatLayoutMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRoomBesapeakState">
+      <soap:operation soapAction="http://juneberry.org/GetRoomBesapeakState" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetRoomBesapeakStateMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEnterOutLog">
+      <soap:operation soapAction="http://juneberry.org/GetEnterOutLog" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetEnterOutLogMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBesapsekLog">
+      <soap:operation soapAction="http://juneberry.org/GetBesapsekLog" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetBesapsekLogMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBlacklist">
+      <soap:operation soapAction="http://juneberry.org/GetBlacklist" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetBlacklistMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetViolationLog">
+      <soap:operation soapAction="http://juneberry.org/GetViolationLog" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetViolationLogMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOftenSeat">
+      <soap:operation soapAction="http://juneberry.org/GetOftenSeat" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetOftenSeatMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRandomSeat">
+      <soap:operation soapAction="http://juneberry.org/GetRandomSeat" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetRandomSeatMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SubmitBesapeskSeat">
+      <soap:operation soapAction="http://juneberry.org/SubmitBesapeskSeat" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:SubmitBesapeskSeatMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelBesapeak">
+      <soap:operation soapAction="http://juneberry.org/CancelBesapeak" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:CancelBesapeakMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ShortLeave">
+      <soap:operation soapAction="http://juneberry.org/ShortLeave" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:ShortLeaveMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReleaseSeat">
+      <soap:operation soapAction="http://juneberry.org/ReleaseSeat" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:ReleaseSeatMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelWait">
+      <soap:operation soapAction="http://juneberry.org/CancelWait" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:CancelWaitMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QRcodeOperation">
+      <soap:operation soapAction="http://juneberry.org/QRcodeOperation" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:QRcodeOperationMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QRcodeSeatInfo">
+      <soap:operation soapAction="http://juneberry.org/QRcodeSeatInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:QRcodeSeatInfoMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSchoolList">
+      <soap:operation soapAction="http://juneberry.org/GetSchoolList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetSchoolListMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelBesapeakByCardNo">
+      <soap:operation soapAction="http://juneberry.org/CancelBesapeakByCardNo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:CancelBesapeakByCardNoMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeSeat">
+      <soap:operation soapAction="http://juneberry.org/ChangeSeat" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:ChangeSeatMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInfo_WeiXin">
+      <soap:operation soapAction="http://juneberry.org/GetUserInfo_WeiXin" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetUserInfo_WeiXinMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ComeBack">
+      <soap:operation soapAction="http://juneberry.org/ComeBack" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:ComeBackMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectSeat">
+      <soap:operation soapAction="http://juneberry.org/SelectSeat" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:SelectSeatMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DelayTime">
+      <soap:operation soapAction="http://juneberry.org/DelayTime" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:DelayTimeMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WaitSeat">
+      <soap:operation soapAction="http://juneberry.org/WaitSeat" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:WaitSeatMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmSeat">
+      <soap:operation soapAction="http://juneberry.org/ConfirmSeat" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:ConfirmSeatMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCanBespeakRoomInfo">
+      <soap:operation soapAction="http://juneberry.org/GetCanBespeakRoomInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetCanBespeakRoomInfoMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSeatBespeakInfo">
+      <soap:operation soapAction="http://juneberry.org/GetSeatBespeakInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetSeatBespeakInfoMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSeatNowStatus">
+      <soap:operation soapAction="http://juneberry.org/GetSeatNowStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetSeatNowStatusMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckSeat">
+      <soap:operation soapAction="http://juneberry.org/CheckSeat" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:CheckSeatMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMessageSeatStatus">
+      <soap:operation soapAction="http://juneberry.org/GetMessageSeatStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetMessageSeatStatusMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectSeatByMessager">
+      <soap:operation soapAction="http://juneberry.org/SelectSeatByMessager" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:SelectSeatByMessagerMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLibraryNowState">
+      <soap:operation soapAction="http://juneberry.org/GetLibraryNowState" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetLibraryNowStateMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCanBespeakRoom">
+      <soap:operation soapAction="http://juneberry.org/GetCanBespeakRoom" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetCanBespeakRoomMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBespeakDate">
+      <soap:operation soapAction="http://juneberry.org/GetBespeakDate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetBespeakDateMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="MobileAppWebServiceSoap12" type="tns:MobileAppWebServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetUserInfo">
+      <soap12:operation soapAction="http://juneberry.org/GetUserInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetUserInfoMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserNowState">
+      <soap12:operation soapAction="http://juneberry.org/GetUserNowState" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetUserNowStateMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckUser">
+      <soap12:operation soapAction="http://juneberry.org/CheckUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:CheckUserMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllRoomInfo">
+      <soap12:operation soapAction="http://juneberry.org/GetAllRoomInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetAllRoomInfoMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllRoomNowState">
+      <soap12:operation soapAction="http://juneberry.org/GetAllRoomNowState" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetAllRoomNowStateMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSingleRoomOpenState">
+      <soap12:operation soapAction="http://juneberry.org/GetSingleRoomOpenState" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetSingleRoomOpenStateMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRoomSeatLayout">
+      <soap12:operation soapAction="http://juneberry.org/GetRoomSeatLayout" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetRoomSeatLayoutMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRoomBesapeakState">
+      <soap12:operation soapAction="http://juneberry.org/GetRoomBesapeakState" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetRoomBesapeakStateMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEnterOutLog">
+      <soap12:operation soapAction="http://juneberry.org/GetEnterOutLog" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetEnterOutLogMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBesapsekLog">
+      <soap12:operation soapAction="http://juneberry.org/GetBesapsekLog" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetBesapsekLogMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBlacklist">
+      <soap12:operation soapAction="http://juneberry.org/GetBlacklist" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetBlacklistMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetViolationLog">
+      <soap12:operation soapAction="http://juneberry.org/GetViolationLog" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetViolationLogMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOftenSeat">
+      <soap12:operation soapAction="http://juneberry.org/GetOftenSeat" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetOftenSeatMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRandomSeat">
+      <soap12:operation soapAction="http://juneberry.org/GetRandomSeat" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetRandomSeatMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SubmitBesapeskSeat">
+      <soap12:operation soapAction="http://juneberry.org/SubmitBesapeskSeat" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:SubmitBesapeskSeatMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelBesapeak">
+      <soap12:operation soapAction="http://juneberry.org/CancelBesapeak" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:CancelBesapeakMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ShortLeave">
+      <soap12:operation soapAction="http://juneberry.org/ShortLeave" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ShortLeaveMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReleaseSeat">
+      <soap12:operation soapAction="http://juneberry.org/ReleaseSeat" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ReleaseSeatMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelWait">
+      <soap12:operation soapAction="http://juneberry.org/CancelWait" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:CancelWaitMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QRcodeOperation">
+      <soap12:operation soapAction="http://juneberry.org/QRcodeOperation" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:QRcodeOperationMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QRcodeSeatInfo">
+      <soap12:operation soapAction="http://juneberry.org/QRcodeSeatInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:QRcodeSeatInfoMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSchoolList">
+      <soap12:operation soapAction="http://juneberry.org/GetSchoolList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetSchoolListMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelBesapeakByCardNo">
+      <soap12:operation soapAction="http://juneberry.org/CancelBesapeakByCardNo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:CancelBesapeakByCardNoMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeSeat">
+      <soap12:operation soapAction="http://juneberry.org/ChangeSeat" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ChangeSeatMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInfo_WeiXin">
+      <soap12:operation soapAction="http://juneberry.org/GetUserInfo_WeiXin" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetUserInfo_WeiXinMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ComeBack">
+      <soap12:operation soapAction="http://juneberry.org/ComeBack" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ComeBackMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectSeat">
+      <soap12:operation soapAction="http://juneberry.org/SelectSeat" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:SelectSeatMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DelayTime">
+      <soap12:operation soapAction="http://juneberry.org/DelayTime" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:DelayTimeMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WaitSeat">
+      <soap12:operation soapAction="http://juneberry.org/WaitSeat" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:WaitSeatMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmSeat">
+      <soap12:operation soapAction="http://juneberry.org/ConfirmSeat" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ConfirmSeatMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCanBespeakRoomInfo">
+      <soap12:operation soapAction="http://juneberry.org/GetCanBespeakRoomInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetCanBespeakRoomInfoMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSeatBespeakInfo">
+      <soap12:operation soapAction="http://juneberry.org/GetSeatBespeakInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetSeatBespeakInfoMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSeatNowStatus">
+      <soap12:operation soapAction="http://juneberry.org/GetSeatNowStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetSeatNowStatusMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckSeat">
+      <soap12:operation soapAction="http://juneberry.org/CheckSeat" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:CheckSeatMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMessageSeatStatus">
+      <soap12:operation soapAction="http://juneberry.org/GetMessageSeatStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetMessageSeatStatusMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectSeatByMessager">
+      <soap12:operation soapAction="http://juneberry.org/SelectSeatByMessager" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:SelectSeatByMessagerMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLibraryNowState">
+      <soap12:operation soapAction="http://juneberry.org/GetLibraryNowState" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetLibraryNowStateMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCanBespeakRoom">
+      <soap12:operation soapAction="http://juneberry.org/GetCanBespeakRoom" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetCanBespeakRoomMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBespeakDate">
+      <soap12:operation soapAction="http://juneberry.org/GetBespeakDate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetBespeakDateMySoapHeader" part="MySoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MobileAppWebService">
+    <wsdl:port name="MobileAppWebServiceSoap" binding="tns:MobileAppWebServiceSoap">
+      <soap:address location="http://www.gxchuwei.com:8022/MobileAppWebService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="MobileAppWebServiceSoap12" binding="tns:MobileAppWebServiceSoap12">
+      <soap12:address location="http://www.gxchuwei.com:8022/MobileAppWebService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

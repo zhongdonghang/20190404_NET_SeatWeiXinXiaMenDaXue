@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html lang="lang">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>个人信息</title>
+    <!-- 引入 WeUI -->
+    <link rel="stylesheet" href="~/dist/css/weui.min.css" />
+</head>
+<body>
+    <div class="weui-cells" style="margin-top: 0px;">
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>姓名</p>
+            </div>
+            <div class="weui-cell__ft">@ViewBag.User.Name</div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>学号</p>
+            </div>
+            <div class="weui-cell__ft">@ViewBag.User.CardNo</div>
+        </div>
+        @*<div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>学校</p>
+            </div>
+            <div class="weui-cell__ft">武昌首义</div>
+        </div>*@
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>院系</p>
+            </div>
+            <div class="weui-cell__ft">@ViewBag.User.ReaderType</div>
+        </div>
+    </div>
+</body>
+</html>

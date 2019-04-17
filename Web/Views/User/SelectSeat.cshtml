@@ -1,0 +1,379 @@
+﻿@model Senparc.Weixin.MP.Helpers.JsSdkUiPackage
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>扫码入座</title>
+    <link href="/dist/css/frozen.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+</head>
+<body>
+    <section class="ui-container">
+        <div class="ui-slider" id="slider1">
+            <ul class="ui-slider-content" style="width: 100%">
+                <li>
+                    <span style="background-image:url(/Img/scan.jpg)">
+                    </span>
+                </li>
+
+            </ul>
+
+        </div>
+
+        <div class="list-block" style="margin-top: 0px;">
+            <ul>
+                <!-- Text inputs -->
+                <li>
+                    <div class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title label">阅览室</div>
+                            <div class="item-input">
+                                @if (ViewBag.UserInRoom == "")
+                                {
+                                    <div>无</div>
+                                }
+                                else
+                                {
+                                    @ViewBag.UserInRoom
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title label">座位号</div>
+                            <div class="item-input">
+                                @if (ViewBag.SeatNum == "")
+                                {
+                                    <div>无</div>
+                                }
+                                else
+                                {
+                                    @ViewBag.SeatNum
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title label">在座状态</div>
+                            <div class="item-input">
+
+                                @if (ViewBag.StatusStr == "没有座位")
+                                {
+                                    <a href="/User/SubscribeSeat" class="button button-warning">没有座位？马上预约一个！</a>
+                                }
+                                else
+                                {
+                                    @ViewBag.StatusStr
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title label">操作时间</div>
+                            <div class="item-input">
+                                @ViewBag.OpTime
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title label">备注</div>
+                            <div class="item-input">
+                                @if (ViewBag.NowStatusRemark == "")
+                                {
+                                    <div>无</div>
+                                }
+                                else
+                                {
+                                    <p>
+                                        @{@ViewBag.NowStatusRemark}
+                                    </p>
+    }
+
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="ui-notice-btn">
+            <button id="btn_scan" class="ui-btn-primary ui-btn-lg">扫码入座</button>
+        </div>
+
+        <div id="showOpResultView">
+
+        </div>
+
+    </section>
+    <script src="/dist/lib/zepto.min.js"></script>
+    <script src="/dist/js/frozen.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script>
+        wx.config({
+            debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: '@Model.AppId', // 必填，公众号的唯一标识
+            timestamp: '@Model.Timestamp', // 必填，生成签名的时间戳
+            nonceStr: '@Model.NonceStr', // 必填，生成签名的随机串
+            signature: '@Model.Signature',// 必填，签名
+            jsApiList: [
+                    'checkJsApi',
+                    'onMenuShareTimeline',
+                    'onMenuShareAppMessage',
+                    'hideMenuItems',
+                    'showMenuItems',
+                    'hideAllNonBaseMenuItem',
+                    'showAllNonBaseMenuItem',
+                    'getNetworkType',
+                    'hideOptionMenu',
+                    'showOptionMenu',
+                    'closeWindow',
+                    'scanQRCode',
+                    'openProductSpecificView'
+            ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2。详见：http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html
+        });
+
+
+        wx.error(function (res) {
+            console.log(res);
+            alert('验证失败');
+        });
+
+        //重新选座，取消按钮事件
+        function btnResult2CancelReSelectClick()
+        {
+           // alert("btnResult2CancelReSelectClick");
+            location.href = '/User/SeatState/';
+        }
+
+
+        // 重新选座确认按钮
+        function btnResult2ReSelectClick(seatNo, roomNo)
+        {
+            //alert("btnResult2ReSelectClick");
+            $.post("/User/ChangeSeat/",
+            {
+                seatNo: seatNo,
+                roomNo: roomNo
+            },
+            function (data, textStatus) {
+                if (textStatus == "success") {
+                    alert(data.message);
+                    $("#showOpResultView").html('');
+                    location.href = '/User/SeatState/';
+                } else {
+                    alert("操作失败！");
+                }
+            }, "json");
+        }
+
+        //签到确认
+        function btnResult6OkClick() {
+            $.post("/User/SeatOperation/",
+                {
+                    action: 'CheckBook'
+                },
+                function (data, textStatus) {
+                    if (textStatus == "success") {
+                        alert(data.message);
+                        $("#showOpResultView").html('');
+                        location.href = '/User/SeatState/';
+                    } else {
+                        alert("操作失败！");
+                    }
+                }, "json");
+        }
+
+        //扫码签到，取消操作
+        function btnResult6CancelClick()
+        {
+            location.href = '/User/SeatState/';
+        }
+
+        //取消暂离回来
+        function btnResult5CancelClick()
+        {
+            location.href = '/User/SeatState/';
+        }
+
+        //暂离回来
+        function btnResult5OkClick(SchoolNo, StudentNo)
+        {
+            $.post("/User/ComeBack/",
+                {
+                    SchoolNo: SchoolNo,
+                    StudentNo: StudentNo
+                },
+                function (data, textStatus) {
+                    if (textStatus == "success") {
+                        alert(data.message);
+                        $("#showOpResultView").html('');
+                        location.href = '/User/SeatState/';
+                    } else {
+                        alert("操作失败！");
+                    }
+                }, "json");
+        }
+
+        //暂离
+        function btnResult1ZanLiClick()
+        {
+            $.post("/User/SeatOperation/",
+                {
+                    action: 'ShortLeave'
+                },
+                function (data, textStatus) {
+                    if (textStatus == "success") {
+                        alert(data.message);
+                        $("#showOpResultView").html('');
+
+                    } else {
+                        alert("操作失败！");
+                    }
+                }, "json");
+        }
+
+        //释放
+        function btnResult1ShiFang()
+        {
+            $.post("/User/SeatOperation/",
+                {
+                    action: 'Leave'
+                },
+                function (data, textStatus) {
+                    if (textStatus == "success") {
+                        alert(data.message);
+                        $("#showOpResultView").html('');
+                    } else {
+                        alert("操作失败！");
+                    }
+                }, "json");
+        }
+
+       
+        //续时请求
+        function btnResult1XuShiClick(SchoolNo, StudentNo)
+        {
+            //提交续时请求
+            $.post("/User/XuShiForSeatingAndSeating/",
+            {
+                SchoolNo: SchoolNo,
+                StudentNo: StudentNo
+            },
+            function (data, textStatus) {
+                if (textStatus == "success") {
+                   alert(data.message);
+                   $("#showOpResultView").html('');
+                } else {
+                    alert("操作失败！");
+                }
+            }, "json");
+        }
+
+        //Leave/Leave 选座操作
+        function btnResult3OkClick(SchoolNo, StudentNo, SeatNo, ReadingRoomNo) {
+                //提交确认座位请求
+                $.post("/User/SelectSeatForLeaveAndLeave/",
+                {
+                    SchoolNo: SchoolNo,
+                    StudentNo: StudentNo,
+                    SeatNo: SeatNo,
+                    ReadingRoomNo: ReadingRoomNo
+                },
+                function (data, textStatus) {
+                    if (textStatus == "success") {
+                        //alert(data.message);
+                        location.href = '/User/SeatState/';
+                    }else {
+                        alert("操作失败！");
+                    }
+                }, "json");
+             //   wx.closeWindow();
+        }
+
+        function btnResult3CancelClick() {
+            wx.closeWindow();
+        }
+
+        wx.ready(function () {
+            $("#btn_scan").click(function () {
+                wx.scanQRCode({
+                    needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+                    scanType: ["qrCode"], // 可以指定扫二维码还是一维码，默认二者都有
+                    success: function (res) {
+                        var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
+                        // alert(result);
+                        $.post("/User/ScanSelectSeat/",
+                        {
+                            ScanResult: result,
+                            UserNowState: '@ViewBag.UserNowState',
+                            UserInRoom: '@ViewBag.UserInRoom',
+                            SeatNum: '@ViewBag.SeatNum'
+                        },
+                        function (data, textStatus) {
+                            if (textStatus == "success") {
+                                if (data.status == "yes") {
+                                   // alert(data.opCode);
+                                    if (data.opCode == '3')//Leave/Leave
+                                    {
+                                        $("#showOpResultView").html('');
+                                        $("#showOpResultView").html(data.retHtml);
+                                    } else if (data.opCode == '-9') {
+                                        alert(data.message);
+                                    } else if (data.opCode == '1') {//Seating/Seating 续时暂离释放
+                                        // alert(data.opCode);
+                                        $("#showOpResultView").html('');
+                                        $("#showOpResultView").html(data.retHtml);
+                                    } else if (data.opCode == '5') {//ShortLeave/ShortLeave 暂离回来
+                                        // alert(data.opCode);
+                                        $("#showOpResultView").html('');
+                                        $("#showOpResultView").html(data.retHtml);
+                                    }
+                                    else if (data.opCode == '6') {//booking/booking 确认签到
+                                        //alert(data.opCode);
+                                        $("#showOpResultView").html('');
+                                        $("#showOpResultView").html(data.retHtml);
+                                    }
+                                    else if (data.opCode == '2') {//重新选座
+                                        //alert(data.opCode);
+                                        $("#showOpResultView").html('');
+                                        $("#showOpResultView").html(data.retHtml);
+                                    }
+                                }
+                                else {
+                                    alert("签到失败:" + data.message);
+                                }
+                            }
+                            else {
+                                alert("签到失败！");
+                            }
+                        }, "json").error(function (XMLHttpRequest, textStatus, errorThrown) { alert(XMLHttpRequest + textStatus + errorThrown); });
+
+                    }
+                });
+
+
+            });
+        });
+    </script>
+</body>
+</html>

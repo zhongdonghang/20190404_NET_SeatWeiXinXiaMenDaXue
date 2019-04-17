@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html lang="lang">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>进出记录</title>
+    <!-- 引入 WeUI -->
+    <link rel="stylesheet" href="~/dist/css/weui.min.css">
+    <link rel="stylesheet" href="~/dist/css/swiper.min.css">
+    <style type="text/css">
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body ontouchstart="">
+    <!-- 轮播图图片 -->
+    <div class="swiper-container" style="height: 150px;">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="~/dist/img/index4.jpg" /></div>
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+    </div>
+    @if (ViewBag.List != null)
+    {
+        foreach (var item in ViewBag.List)
+        {
+    <div class="weui-form-preview">
+        <div class="weui-form-preview__hd">
+            <label class="weui-form-preview__label">操作记录</label>
+            <em class="weui-form-preview__value">@item.EnterOutStateStr</em>
+        </div>
+        <div class="weui-form-preview__bd">
+            <p>
+                <label class="weui-form-preview__label">阅览室</label>
+                <span class="weui-form-preview__value">@item.RoomName</span>
+            </p>
+            <p>
+                <label class="weui-form-preview__label">座位号</label>
+                <span class="weui-form-preview__value">@item.SeatShortNo</span>
+            </p>
+            <p>
+                <label class="weui-form-preview__label">操作时间</label>
+                <span class="weui-form-preview__value">@item.EnterOutTime</span>
+            </p>
+            <p>
+                <label class="weui-form-preview__label">备注</label>
+                <span class="weui-form-preview__value" style="text-align:left;">@item.Remark</span>
+            </p>
+        </div>
+    </div>
+        }
+    }
+    else
+    {
+        <div class="weui-cells" style="margin-top: 0px;">
+            <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <p>无进出记录</p>
+                </div>
+                <div class="weui-cell__ft">
+                </div>
+            </div>
+         </div>
+     }
+</body>
+</html>

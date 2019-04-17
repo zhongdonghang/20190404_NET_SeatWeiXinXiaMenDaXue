@@ -1,0 +1,194 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>楚惟科技</title>
+    <link rel="stylesheet" href="<%templateskin%>/bootstrap-4.0.0-dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="<%templateskin%>/css/style.css" />
+    <script type="text/javascript" src="<%templateskin%>/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="<%templateskin%>/bootstrap-4.0.0-dist/js/bootstrap.js"></script>
+</head>
+<body>
+    <!--页面头部-->
+    <%template src="_header.html"%>
+    <!--/页面头部-->
+    <div class="header">
+        <!--轮播图-->
+        <div class="banner">
+            <div class="container-fluid pl-0 pr-0">
+                <div class="row h-100 m-0">
+                    <div class="col p-0">
+                        <div id="demo" class="carousel slide" data-ride="carousel">
+                            <!-- 指示符 -->
+                            <ul class="carousel-indicators">
+                                <li data-target="#demo" data-slide-to="0" class="active"></li>
+                            </ul>
+                            <!-- 轮播图片 -->
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img class="banner-img" src="<%templateskin%>/images/banner-bg.jpg" width="100%">
+                                    <button type="button" class="banner-b btn" onclick="location.href='http://www.gxchuwei.com/PictureAlbum/index.html'" style="color: #FFF;">查看详情</button>
+                                </div>
+                            </div>
+                            <!-- 左右切换按钮 -->
+                            <!--<a class="carousel-control-prev" href="#demo" data-slide="prev"> <span class="carousel-control-prev-icon"></span> </a> <a class="carousel-control-next" href="#demo" data-slide="next"> <span class="carousel-control-next-icon"></span> </a>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="new">
+        <div class="new-bg"></div>
+        <div class="container pl-0 pr-0">
+            <div class="row m-0">
+                <div class="col new-text pt-5 pb-5">NEW-最新动态</div>
+            </div>
+            <div class="row m-0">
+                <div class="col pb-5"><img class="center-level" src="<%templateskin%>/images/line.png"></div>
+            </div>
+            <div class="row m-0">
+                <div class="col-lg-6 col-md-12">
+                    <div class="row m-0 index-top-news">
+                        <%set DataTable topNews=get_article_list("news", 0, 1, "status=0 and is_top=1 and img_url<>''")%>
+                        <%foreach(DataRow dr in topNews.Rows)%>
+                        <div class="col">
+                            <a href="<%linkurl(" news_show",{dr[id]})%>"><img src="{dr[img_url]}" width="100%"></a>
+                            <p><a href="<%linkurl(" news_show",{dr[id]})%>">{dr[title]}</a></p>
+                        </div>
+                        <%/foreach%>
+                    </div>
+                    <div class="row padding m-0">
+                        <div class="col-12 transverse-line display"></div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-12  index-recommend-news">
+                    <%set DataTable recommendNews=get_article_list("news", 0, 3, "status=0 and is_red=1")%>
+                    <%foreach(DataRow dr in recommendNews.Rows)%>
+                    <div class="row m-0">
+                        <div class="col-1 p-0">
+                            <h5 class="text-center"><%datetostr({dr[add_time]},yyyy)%></h5>
+                            <h6 class="text-center">10-19</h6>
+                        </div>
+                        <div class="col-1 vertical-line p-0"></div>
+                        <div class="col-10 txt p-0"><a href="<%linkurl(" news_show",{dr[id]})%>">{dr[title]}</a></div>
+                    </div>
+                    <div class="row padding m-0">
+                        <div class="col-12 transverse-line"></div>
+                    </div>
+                    <%/foreach%>
+                </div>
+
+                <div class="col-lg-12 col-md-12">
+                    <div class="row m-0">
+                        <div class="col p-0" style="text-align:center;">
+                            <a href="<%linkurl(" news_list",0)%>">更多资讯>></a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="product">
+        <div class="container-fluid p-0">
+            <div class="row ml-0 mr-0">
+                <div class="col product-bg">
+                    <div class="row m-0 4 mt-5">
+                        <div class="col txt p-4 mt-5" style="color:#000;">PRODUCT-最新产品</div>
+                    </div>
+                    <br />
+                    <div class="row m-0">
+                        <div class="col p-4"><img class="center-level" src="<%templateskin%>/images/line.png"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row m-0">
+                <div class="col">
+                    <h3 class="pt-5 text-center">楚风高校座位资源管理系统</h3>
+                    <p class="pt-1 text-center">有效解决各类座位资源问题</p>
+                </div>
+            </div>
+            <div class="row m-0">
+                <div class="col-md-3 col-6 pt-5">
+                    <img src="<%templateskin%>/images/product-1.jpg" width="100%">
+                    <p class="mt-3 text-center">在线预约灵活选座</p>
+                </div>
+                <div class="col-md-3 col-6 pt-5">
+                    <img src="<%templateskin%>/images/product-2.jpg" width="100%">
+                    <p class="pt-3 text-center">多元智能管理后台</p>
+                </div>
+                <div class="col-md-3 col-6 pt-5">
+                    <img src="<%templateskin%>/images/product-3.jpg" width="100%">
+                    <p class="pt-3 text-center">数据化统计分析</p>
+                </div>
+                <div class="col-md-3 col-6 pt-5">
+                    <img src="<%templateskin%>/images/product-4.jpg" width="100%">
+                    <p class="mt-3 text-center">综合化信息发布</p>
+                </div>
+            </div>
+            <div class="row m-0">
+                <div class="col p-5">
+                    <button type="button" class="product-b btn btn-primary center-level">更多详情</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="business">
+        <div class="container p-0">
+            <div class="row m-0">
+                <div class="col txt pt-5 pb-5">BUSINESS-主营业务</div>
+            </div>
+            <div class="row m-0">
+                <div class="col pb-5"><img class="center-level" src="<%templateskin%>/images/line.png"></div>
+            </div>
+            <div class="row m-0">
+                <div class="col-md-4 col-sm-12 business-img"><img src="<%templateskin%>/images/business-1.jpg" width="100%"></div>
+                <div class="col-md-4 col-sm-12 business-img"><img src="<%templateskin%>/images/business-2.jpg" width="100%"></div>
+                <div class="col-md-4 col-sm-12 business-img"><img src="<%templateskin%>/images/business-3.jpg" width="100%"></div>
+            </div>
+            <div class="row m-0">
+                <div class="col p-5">
+                    <button type="button" class="business-b btn btn-primary center-level">更多解决方案</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="provide">
+        <div class="container p-0">
+            <div class="row m-0">
+                <div class="col txt pt-5 pb-5">PROVIDE-我们可以提供</div>
+            </div>
+            <div class="row m-0">
+                <div class="col pb-5"><img class="center-level" src="<%templateskin%>/images/line.png"></div>
+            </div>
+            <div class="row m-0">
+                <div class="col-sm-12 col-md-4">
+                    <img class="center-level" src="<%templateskin%>/images/provide-1.png">
+                    <h5 class="pt-5">安全、完整的系统策划和设计</h5>
+                    <p>我们具备创造力和丰富的经验，为您解决疑问和难题，为您提供多方面完善的策划：如项目的规划立项总体方案设计、方案评估论证。</p>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                    <img class="center-level" src="<%templateskin%>/images/provide-2.png">
+                    <h5 class="pt-5">先进、专业的技术支持</h5>
+                    <p>公司众多一流人才的深层磨合，对最新技术执拗的探讨精神，使我们能够保证为你提供最专业的应用，最专业的服务。</p>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                    <img class="center-level" src="<%templateskin%>/images/provide-3.png">
+                    <h5 class="pt-5">完善、快捷的售后服务</h5>
+                    <p>以最快的速度、最有效的方法、最先进的技术保障系统的效果发挥到极致，解除您的后顾之忧。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--页面底部-->
+    <%template src="_footer.html"%>
+    <!--/页面底部-->
+
+</body>
+</html>

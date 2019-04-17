@@ -1,0 +1,205 @@
+﻿<!DOCTYPE html>
+<html lang="lang">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>当前座位</title>
+    <!-- 引入 WeUI -->
+    <link rel="stylesheet" href="~/dist/css/weui.min.css" />
+    <link rel="stylesheet" href="~/dist/css/swiper.min.css">
+    <style type="text/css">
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- 使用 -->
+    <!-- 轮播图图片 -->
+    <div class="swiper-container" style="height: 150px;">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="~/dist/img/index4.jpg" /></div>
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+    </div>
+    <!-- 列表项 -->
+    <div class="weui-cells" style="margin-top: 0px;">
+
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>阅览室</p>
+            </div>
+            <div class="weui-cell__ft">
+                @if (ViewBag.UserNowState.InRoom == "")
+                {
+                    <div>无</div>
+                }
+                else
+                {
+                    @ViewBag.UserNowState.InRoom
+                }
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>座位号</p>
+            </div>
+            <div class="weui-cell__ft">
+                @if (ViewBag.UserNowState.SeatNum == "")
+                {
+                    <div>无</div>
+                }
+                else
+                {
+                    @ViewBag.UserNowState.SeatNum
+                }
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>状态</p>
+            </div>
+            <div class="weui-cell__ft">
+                @if (ViewBag.UserNowState.StatusStr == "没有座位")
+                {
+                    <div>无</div>
+                }
+                else
+                {
+                    @ViewBag.UserNowState.StatusStr
+                }
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>操作时间</p>
+            </div>
+            <div class="weui-cell__ft">
+                @if (ViewBag.UserNowState.Time == "")
+                {
+                    <div>无</div>
+                }
+                else
+                {
+                    @ViewBag.UserNowState.Time
+                }
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>备注</p>
+            </div>
+            <div class="weui-cell__ft">
+                @if (ViewBag.UserNowState.NowStatusRemark == "")
+                {
+                    <p>无</p>
+                }
+                else
+                {
+                    <p style="text-align:left;width:300px;">
+                        @{@ViewBag.UserNowState.NowStatusRemark}
+                    </p>
+                 }
+            </div>
+        </div>
+    </div>
+
+    <div class="button-sp-area" style="text-align: center; margin-top: 15px;">
+        @if (ViewBag.UserNowState.StatusStr == "没有座位")
+        {
+            <a href="@Url.Action("ReserveSeat", "NewUser")" class="weui-btn weui-btn_mini weui-btn_primary">还没有座位？马上预约一个！</a>
+        }
+        else
+        {
+            <a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_primary" id="ShortLeave">暂离座位</a>
+            <a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_warn" id="Leave">释放座位</a>
+        }
+    </div>
+
+    <div class="weui-panel" style="margin-top:15px;">
+        @if (ViewBag.Count > 0)
+        {
+            <div class="weui-panel__hd">有效的预约记录</div>
+        }
+        <div class="weui-panel__bd">
+            @foreach (var item in ViewBag.List)
+            {
+                <div class="weui-media-box weui-media-box_text" data-appid="@item.Id">
+                    <h4 class="weui-media-box__title">预约：@item.BookTime</h4>
+                    <p class="weui-media-box__desc">阅览室：@item.RoomName</p>
+                    <p class="weui-media-box__desc">座位号：@item.SeatShortNo</p>
+                    <p class="weui-media-box__desc">提交时间：@item.SubmitDateTime</p>
+                    <p class="weui-media-box__desc">系统提醒：@item.Remark</p>
+                    <div class="button-sp-area" style="text-align: center; margin-top: 10px;">
+                        <a href="javascript:CancelBesapeak(@{@item.Id});" class="weui-btn weui-btn_mini weui-btn_warn" id="cToast">取消预约</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <script type="text/javascript" src="~/dist/js/weui.min.js"></script>
+    <script src="~/dist/js/zepto.min.js"></script>
+    <script type="text/javascript">
+        function CancelBesapeak(id) {
+            $.post("@Url.Action("CancelBesapeak", "NewUser")",
+            {
+                bespeakId: id
+            },
+            function (data, textStatus) {
+                if (textStatus == "success") {
+                    alert(data.message);
+                    location.reload();
+                }
+                else {
+                    alert("操作失败！");
+                }
+            }, "json");
+        }
+        $("#Leave,#ShortLeave").hide();
+
+        var str = "@{@ViewBag.UserNowState.CanOperation}";
+        var strs = new Array();
+        strs = str.split(";");
+        $.each(strs, function (i, val) {
+            $('#' + val).show();
+        });
+
+        //Leave  ShortLeave   CancelWait   CancelBook
+        $("#Leave,#ShortLeave").click(function () {
+
+            if (confirm("请确认您的操作")) {
+                //点击确定后操作
+                $.post("@Url.Action("SeatOperation", "NewUser")",
+                    {
+                        action: $(this).attr("id")
+                    },
+                    function (data, textStatus) {
+                        if (textStatus == "success") {
+                            alert(data.message);
+                            location.reload();
+                        }
+                        else {
+                            alert("操作失败！");
+                        }
+                    }, "json").error(function (XMLHttpRequest, textStatus, errorThrown) { alert(XMLHttpRequest + textStatus + errorThrown); });
+            }
+        });
+    </script>
+</body>
+</html>

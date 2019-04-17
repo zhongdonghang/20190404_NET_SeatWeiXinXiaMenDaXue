@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html>
+<html lang="lang">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>我的</title>
+    <!-- 引入 WeUI -->
+    <link rel="stylesheet" href="~/dist/css/weui.min.css" />
+    <link rel="stylesheet" href="~/dist/css/swiper.min.css">
+    <style type="text/css">
+        .imgtest {
+            margin: 10px 5px;
+            overflow: hidden;
+        }
+
+        .list_ul figcaption p {
+            font-size: 12px;
+            color: #aaa;
+        }
+
+        .imgtest figure div {
+            display: inline-block;
+            margin: 5px auto;
+            width: 55px;
+            height: 55px;
+            border-radius: 100px;
+            border: 2px solid #fff;
+            overflow: hidden;
+            -webkit-box-shadow: 0 0 3px #ccc;
+            box-shadow: 0 0 3px #ccc;
+        }
+
+        .imgtest img {
+            width: 100%;
+            min-height: 100%;
+            text-align: center;
+        }
+        body, html {
+            height: 100%;
+            -webkit-tap-highlight-color: transparent;
+        }
+    </style>
+</head>
+<body>
+    <!-- 使用 -->
+    <div class="weui-tab">
+        <div class="weui-tab__panel">
+            <div class="swiper-container" style="height: 160px;">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="/dist/img/index4.jpg" /></div>
+                </div>
+            </div>
+            <div class="weui-cells imgtest" style="margin-top:0px;">
+                <a class="weui-cell weui-cell_access" href="@Url.Action("GetUserInformation", "NewUser")" style="height: 55px;">
+                    <figure>
+                        <div class="weui-cell__hd" style="margin-left:15px;">
+                            <img src="@{@ViewBag.User.HeadImgUrl}"/>
+                        </div>
+                    </figure>
+                    <div class="weui-cell__bd" style="margin-left: 18px;">@{@ViewBag.User.NickName}</div>
+                    <div class="weui-cell__ft"></div>
+                </a>
+                <a class="weui-cell weui-cell_access" href="@Url.Action("GetStudyLog", "NewUser")" style="height: 80px;">
+                    <div class="weui-cell__bd" style="text-align: center;">
+                        <p>0小时</p>
+                        <p class="weui-media-box__desc">学习时长</p>
+                    </div>
+                    <div class="weui-cell__bd" style="text-align: center;">
+                        <p>0名</p>
+                        <p class="weui-media-box__desc">校内排名</p>
+                    </div>
+                    <div class="weui-cell__bd" style="text-align: center;">
+                        <p>0次</p>
+                        <p class="weui-media-box__desc">今年预约</p>
+                    </div>
+                    <div class="weui-cell__ft"></div>
+                </a>
+            </div>
+            <div class="weui-cells" style="margin-top:15px;">
+                <a class="weui-cell weui-cell_access" href="@Url.Action("MyReserve", "NewUser")">
+                    <div class="weui-cell__hd"><img src="~/dist/img/appointment.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
+                    <div class="weui-cell__bd">
+                        <p>我的预约</p>
+                    </div>
+                    <div class="weui-cell__ft"></div>
+                </a>
+            </div>
+            <div class="weui-cells" style="margin-top:15px;">
+                <a class="weui-cell weui-cell_access" href="@Url.Action("ReadMe", "NewUser")">
+                    <div class="weui-cell__hd"><img src="~/dist/img/rule.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
+                    <div class="weui-cell__bd">
+                        <p>使用手册</p>
+                    </div>
+                    <div class="weui-cell__ft"></div>
+                </a>
+            </div>
+            @*<div class="weui-cells" style="margin-top:15px;">
+                <a class="weui-cell weui-cell_access" href="/NewUser/ReadMe">
+                    <div class="weui-cell__hd"><img src="/dist/img/manual.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
+                    <div class="weui-cell__bd">
+                        <p>使用手册</p>
+                    </div>
+                    <div class="weui-cell__ft"></div>
+                </a>
+            </div>*@
+            <div class="weui-cells" style="margin-top:15px;">
+                <a class="weui-cell weui-cell_access" href="@Url.Action("CancelBind", "NewUser")">
+                    <div class="weui-cell__hd"><img src="~/dist/img/release.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
+                    <div class="weui-cell__bd">
+                        <p>解除绑定</p>
+                    </div>
+                    <div class="weui-cell__ft"></div>
+                </a>
+            </div>
+        </div>
+        <div class="weui-tabbar">
+            <a href="@Url.Action("Index", "NewUser")" class="weui-tabbar__item">
+                <img src="~/dist/img/home.png" alt="" class="weui-tabbar__icon">
+                <p class="weui-tabbar__label">主页</p>
+            </a>
+            <a href="@Url.Action("Profile", "NewUser")" class="weui-tabbar__item weui-bar__item_on">
+                <img src="~/dist/img/my.png" alt="" class="weui-tabbar__icon">
+                <p class="weui-tabbar__label">我的</p>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

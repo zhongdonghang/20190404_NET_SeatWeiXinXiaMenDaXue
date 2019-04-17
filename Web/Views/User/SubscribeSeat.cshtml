@@ -1,0 +1,142 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>座位预约</title>
+    <link href="/dist/css/frozen.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+    <script type="text/javascript">
+
+
+    </script>
+</head>
+<body>
+    @*<header class="ui-header ui-header-positive ui-border-b">
+        <i class="ui-icon-return" onclick="history.back()"></i>  <h1>座位预约</h1>
+    </header>*@
+    <section class="ui-container ">
+        <div class="ui-slider" id="slider1">
+            <ul class="ui-slider-content" style="width: 100%">
+                <li>
+                    <span style="background-image:url(/Img/SubscribeSeat.jpg)">
+                    </span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="ui-form ui-border-t">
+            <form action="#">
+                <div class="ui-form-item ui-border-b">
+                    <label>日期</label>
+                    <input type="text" class="external" placeholder="预约当日" id="input_calendar" readonly="" value='@{@DateTime.Now.ToString("yyyy-MM-dd")}' />
+                    <input type="hidden" id="hid_calendar" value='@{@DateTime.Now.ToString("yyyy-MM-dd")}' />
+                </div>
+            </form>
+        </div>
+        <div class="ui-tips ui-tips-info">
+            <i></i><span id="ShowMsg">可预览的阅览室</span>
+        </div>
+        <ul class="ui-list ui-list-function ui-list-link ui-border-tb" id="ul_list">
+            @foreach (Model.J_GetCanBespeakRoomInfo item in ViewBag.List)
+            {
+               
+                    <li class="ui-border-t">
+                        <div class="ui-avatar-s">
+                            <span style="background-image:url(/Img/readingroom.jpg)"></span>
+                        </div>
+                            <div class="ui-list-info">
+                                <h4 class="ui-nowrap">阅览室：@item.RoomName</h4>
+                                <h5 class="ui-nowrap">所属图书馆:@item.LibraryName</h5>
+                            </div>
+                            <div class="ui-btn"><a href="/User/GetRoomBesapeakState?date=@{@DateTime.Now.ToString("yyyy-MM-dd")}&roomNo=@{@item.RoomNo}&roomName=@{@item.RoomName}">选位置</a></div>
+                        </li>
+                    }
+
+</ul>
+    </section>
+
+
+
+        <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+        <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+        <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+                $.showPreloader();
+                $.post("/User/GetReadingRoom/",
+                        {
+                            date: $("#input_calendar").val()
+                        },
+                        function (data, textStatus) {
+                            if (textStatus == "success") {
+                                $("#ul_list").html(data.message);
+                                setTimeout(function () {
+                                    $.hidePreloader();
+                                    if (data.message == "") {
+                                        $("#ShowMsg").html("选择日期没有可预约的阅览室");
+                                    }
+                                    else {
+                                        $("#ShowMsg").html("可预约阅览室");
+                                    }
+                                }, 500);
+
+                                //window.location.href = "/User/Index";
+                            }
+                            else {
+                                alert("操作失败！");
+                                setTimeout(function () {
+                                    $.hidePreloader();
+                                }, 1000);
+                            }
+                        }, "json");
+            });
+
+            $("#input_calendar").calendar({
+                value: ['@{@DateTime.Now.ToString("yyyy-MM-dd")}'],
+                minDate: ['@{@DateTime.Now.AddDays(-1).ToString("yyyy-MM-dd")}'],
+                onClose: function (p) {
+                    if ($("#input_calendar").val() != $("#hid_calendar").val()) {
+                        $("#hid_calendar").val($("#input_calendar").val());
+                        $.showPreloader();
+                       // alert($("#input_calendar").val());
+                        $.post("/User/GetReadingRoom/",
+                        {
+                            date: $("#input_calendar").val()
+                        },
+                        function (data, textStatus) {
+                            if (textStatus == "success") {
+                                $("#ul_list").html(data.message);
+                                setTimeout(function () {
+                                    $.hidePreloader();
+                                    if (data.message == "") {
+                                        $("#ShowMsg").html("选择日期没有可预约的阅览室");
+                                    }
+                                    else {
+                                        $("#ShowMsg").html("可预约阅览室");
+                                    }
+                                }, 500);
+
+                                //window.location.href = "/User/Index";
+                            }
+                            else {
+                                alert("操作失败！");
+                                setTimeout(function () {
+                                    $.hidePreloader();
+                                }, 1000);
+                            }
+                        }, "json");
+                    }
+                }
+            });
+        </script>
+        <script src="/dist/lib/zepto.min.js"></script>
+        <script src="/dist/js/frozen.js"></script>
+</body>
+</html>

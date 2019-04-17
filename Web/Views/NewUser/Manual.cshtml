@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<html lang="lang">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>相关规则</title>
+    <!-- 引入 WeUI -->
+    <link rel="stylesheet" href="~/dist/css/weui.min.css" />
+    <style>
+        p{
+            text-indent:2em;
+         }
+    </style>
+</head>
+<body>
+    <!-- 预约规则 -->
+    <div class="weui-panel">
+        <div class="weui-panel__hd">预约规则</div>
+        <div class="weui-panel__bd">
+            <div class="weui-media-box weui-media-box_text">
+                <h4 class="weui-media-box__title">1．预约账号激活</h4>
+                <p class="weui-media-box__desc">在使用预约网站之前，需要先在图书馆的终端机激活账号。</p>
+            </div>
+        </div>
+        <div class="weui-panel__bd">
+            <div class="weui-media-box weui-media-box_text">
+                <h4 class="weui-media-box__title">2．绑定预约账号</h4>
+                <p class="weui-media-box__desc" style="-webkit-line-clamp: 3;">在激活账号之后登录预约网站，在预约网站扫描“云座位”公众号二维码，关注“云座位”公众号后，在公众号内点击“账号绑定”，扫描预约网站上的个人二维码。完成账号绑定。</p>
+            </div>
+        </div>
+        <div class="weui-panel__bd">
+            <div class="weui-media-box weui-media-box_text">
+                <h4 class="weui-media-box__title">3．微信预约座位</h4>
+                <p class="weui-media-box__desc">用户成功绑定账号后即可通过微信预约座位。</p>
+            </div>
+        </div>
+    </div>
+    <!-- 违规规则 -->
+    <div class="weui-panel">
+        <div class="weui-panel__hd">违规规则</div>
+        <div class="weui-panel__bd">
+            <div class="weui-media-box weui-media-box_text">
+                <h4 class="weui-media-box__title">1．被管理员释放座位</h4>
+                <p class="weui-media-box__desc">管理员在后台管理网站释放读者座位，会被记录一次违规。</p>
+            </div>
+        </div>
+        <div class="weui-panel__bd">
+            <div class="weui-media-box weui-media-box_text">
+                <h4 class="weui-media-box__title">2．被管理员设置暂离，暂离超时</h4>
+                <p class="weui-media-box__desc">管理员在后台管理网站设置读者暂离，并且读者暂离超时，会被记录一次违规。</p>
+            </div>
+        </div>
+        <div class="weui-panel__bd">
+            <div class="weui-media-box weui-media-box_text">
+                <h4 class="weui-media-box__title">3．在座超时</h4>
+                <p class="weui-media-box__desc">用户在座超时，会被记录一次违规。</p>
+            </div>
+        </div>
+        <div class="weui-panel__bd">
+            <div class="weui-media-box weui-media-box_text">
+                <h4 class="weui-media-box__title">4．暂离超时</h4>
+                <p class="weui-media-box__desc">用户暂离超时后会记录一次违规。</p>
+            </div>
+        </div>
+        <div class="weui-panel__bd">
+            <div class="weui-media-box weui-media-box_text">
+                <h4 class="weui-media-box__title">5．被用户设置暂离，暂离超时</h4>
+                <p class="weui-media-box__desc">用户等待座位成功后，原用户会被记录一次违规。</p>
+            </div>
+        </div>
+        <div class="weui-panel__bd">
+            <div class="weui-media-box weui-media-box_text">
+                <h4 class="weui-media-box__title">6．预约超时</h4>
+                <p class="weui-media-box__desc">没在规定时间内签到的用户会被记录一次违规。</p>
+            </div>
+        </div>
+        <div class="weui-panel__bd">
+            <div class="weui-media-box weui-media-box_text">
+                <h4 class="weui-media-box__title">7．离开图书馆没有刷卡</h4>
+                <p class="weui-media-box__desc" style="-webkit-line-clamp: 3;">如果用户在离开图书馆的时候没有刷卡释放座位，或者设置座位暂离，再次通过刷卡进入图书馆的时候，会被释放座位，并且记录一次违规。</p>
+            </div>
+        </div>
+        <div class="weui-panel__bd">
+            <div class="weui-media-box weui-media-box_text">
+                <h4 class="weui-media-box__title">8．其它说明</h4>
+                <p class="weui-media-box__desc" style="-webkit-line-clamp: 3;">违规记录拥有时效性，违规有过期日期。如果本次违规没有进入黑名单（目前累计的违规次数不足时。如果进入黑名单，累计的违规记录将至零）在到达时限后此条违规将失效。</p>
+            </div>
+        </div>
+    </div>
+    <!-- 黑名单规则 -->
+    <div class="weui-panel">
+        <div class="weui-panel__hd">黑名单规则</div>
+        <div class="weui-panel__bd">
+            <div class="weui-media-box weui-media-box_text">
+                <h4 class="weui-media-box__title">1．自动加入</h4>
+                <p class="weui-media-box__desc">在一个月时间内违规3次就会进入黑名单。</p>
+            </div>
+        </div>
+        <div class="weui-panel__bd">
+            <div class="weui-media-box weui-media-box_text">
+                <h4 class="weui-media-box__title">2．手动加入</h4>
+                <p class="weui-media-box__desc">如果出现严重影响图书馆的行为，老师有权手动将学生加入黑名单中。</p>
+            </div>
+        </div>
+        <div class="weui-panel__bd">
+            <div class="weui-media-box weui-media-box_text">
+                <h4 class="weui-media-box__title">3．处罚说明</h4>
+                <p class="weui-media-box__desc">黑名单处罚的时长是7*24小时。如果是1月1号10:01违规，那么在1月8号的10:01才能解除黑名单。不是到1月8号的零点解除。</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

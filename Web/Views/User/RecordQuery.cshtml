@@ -1,0 +1,129 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>记录查询</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+
+    <link href="/dist/css/frozen.css" rel="stylesheet" />
+    <script type="text/javascript">
+
+    </script>
+
+</head>
+<body>
+    <section class="ui-container">
+        <div class="ui-slider" id="slider1">
+            <ul class="ui-slider-content" style="width: 100%">
+                <li><span style="background-image:url(/Img/RecordQuery.jpg)"></span></li>
+            </ul>
+        </div>
+        <section id="tab">
+            <div class="demo-item">
+                <div class="demo-block">
+                    <div class="ui-tab">
+                        <ul class="ui-tab-nav ui-border-b">
+                            <li class="current">预约记录</li>
+                            <li class="current">进出记录</li>
+                            <li class="current">违规记录</li>
+                            <li class="current">黑名单记录</li>
+                        </ul>
+                        <ul class="ui-tab-content" style="width:300%">
+                            <li>
+                                <section class="ui-panel ui-panel-pure ui-border-t">
+                                    <ul class="ui-list ui-list-pure ui-border-tb">
+                                        @foreach (var item in ViewBag.Data.BesapsekLogList)
+                                        {
+                                            <li class="ui-border-t">
+                                                <h5><span class="date"> @item.BookTime </span></h5>
+                                                <h4>阅览室:@item.RoomName</h4>
+                                                <h4>提交时间:@item.SubmitDateTime</h4>
+                                                <h4>备注:@item.Remark</h4>
+                                            </li>
+                                        }
+
+                                    </ul>
+                                </section>
+                            </li>
+                            <li>
+                                <section class="ui-panel ui-panel-pure ui-border-t">
+                                    <ul class="ui-list ui-list-pure ui-border-tb">
+                                    @foreach (var item in ViewBag.Data.EnterOutLogList)
+                                    {
+                                        <li class="ui-border-t">
+                                            <h5><span class="date"> @item.EnterOutTime </span></h5>
+                                            <h4>阅览室:@item.RoomName</h4>
+                                            <h4>座位:@item.SeatShortNo</h4>
+                                            <h4>类型:@item.EnterOutStateStr</h4>
+                                            <h4>备注:@item.Remark</h4>
+                                        </li>
+                                    }
+
+                                    </ul>
+                                </section>
+                            </li>
+                            <li>
+                                <section class="ui-panel ui-panel-pure ui-border-t">
+                                    <ul class="ui-list ui-list-pure ui-border-tb">
+                                            @foreach (var item in ViewBag.Data.ViolationLogList)
+                                            {
+                                                <li class="ui-border-t">
+                                                    <h5><span class="date"> @item.EnterOutTime</span></h5>
+                                                    <h4>阅览室：@item.RoomName</h4>
+                                                    <h4>座位号：@item.SeatNo</h4>
+                                                    <h4>备注：@item.Remark</h4>
+                                                </li>
+                                            }
+
+                                    </ul>
+                                </section>
+                            </li>
+                            <li>
+                                <section class="ui-panel ui-panel-pure ui-border-t">
+                                    <ul class="ui-list ui-list-pure ui-border-tb">
+                                        @foreach (var item in ViewBag.Data.BlackList)
+                                        {
+                                            <li class="ui-border-t">
+                                                <h5><span class="date"> @item.AddTime</span></h5>
+                                                <h4>离开时间:@item.OutTime</h4>
+                                                <h4>离开方式:@item.OutBlacklistModeStr</h4>
+                                                <h4>备注:@item.ReMark</h4>
+                                            </li>
+                                        }
+
+                                    </ul>
+                                </section>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <script class="demo-script">
+
+                </script>
+            </div>
+        </section>
+    </section>
+
+    <script src="/dist/lib/zepto.min.js"></script>
+    <script src="/dist/js/frozen.js"></script>
+    <script>
+        (function () {
+            var tab = new fz.Scroll('.ui-tab', {
+                role: 'tab',
+                autoplay: true,
+                interval: 10000
+            });
+            /* 滑动开始前 */
+            tab.on('beforeScrollStart', function (fromIndex, toIndex) {
+                console.log(fromIndex, toIndex);// from 为当前页，to 为下一页
+            })
+        })();
+    </script>
+</body>
+</html>
+

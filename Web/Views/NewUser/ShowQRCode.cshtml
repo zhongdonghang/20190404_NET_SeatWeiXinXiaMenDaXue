@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<html lang="lang">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>座位码</title>
+    <!-- 引入 WeUI -->
+    <link rel="stylesheet" href="~/dist/css/weui.min.css" />
+    <link rel="stylesheet" href="~/dist/css/swiper.min.css">
+    <style type="text/css">
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- 使用 -->
+    <!-- 轮播图图片 -->
+    <div class="swiper-container" style="height: 100px;">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">扫描下方二维码进行签到</div>
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+    </div>
+    <!-- 二维码 -->
+    <div style="text-align: center;">
+        <img src="@ViewBag.QRCodeImage" />
+    </div>
+    <div class="weui-cells" style="margin-top: 0px;">
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>阅览室</p>
+            </div>
+            <div class="weui-cell__ft">
+                @if (ViewBag.UserNowState.InRoom == "")
+                {
+                    <div>无</div>
+                }
+                else
+                {
+                    @ViewBag.UserNowState.InRoom
+                }
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>座位号</p>
+            </div>
+            <div class="weui-cell__ft">
+                @if (ViewBag.UserNowState.SeatNum == "")
+                {
+                    <div>无</div>
+                }
+                else
+                {
+                    @ViewBag.UserNowState.SeatNum
+                }
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>状态</p>
+            </div>
+            <div class="weui-cell__ft">
+                @if (ViewBag.UserNowState.StatusStr == "没有座位")
+                {
+                    <div>无</div>
+                }
+                else
+                {
+                    @ViewBag.UserNowState.StatusStr
+                }
+            </div>
+        </div>
+    </div>
+    <div class="button-sp-area" style="text-align: center;margin-top: 15px;">
+        @if (ViewBag.UserNowState.StatusStr == "没有座位")
+        {
+            <a href="@Url.Action("ReserveSeat", "NewUser")" class="weui-btn weui-btn_mini weui-btn_primary">还没有座位？马上预约一个！</a>
+        }
+        else
+        {
+            <a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_primary" id="ShortLeave">暂离座位</a>
+            <a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_warn" id="Leave">释放座位</a>
+        }
+    </div>
+    <script src="~/dist/js/zepto.min.js"></script>
+    <script>
+    $("#Leave,#ShortLeave").hide();
+
+        var str = "@{@ViewBag.UserNowState.CanOperation}";
+        var strs = new Array();
+        strs = str.split(";");
+        $.each(strs, function (i, val) {
+            $('#' + val).show();
+        });
+
+        //Leave  ShortLeave   CancelWait   CancelBook
+        $("#Leave,#ShortLeave").click(function () {
+
+            if (confirm("请确认您的操作")) {
+                //点击确定后操作
+                $.post("@Url.Action("SeatOperation", "NewUser")",
+                    {
+                        action: $(this).attr("id")
+                    },
+                    function (data, textStatus) {
+                        if (textStatus == "success") {
+                            alert(data.message);
+                            location.reload();
+                        }
+                        else {
+                            alert("操作失败！");
+                        }
+                    }, "json").error(function (XMLHttpRequest, textStatus, errorThrown) { alert(XMLHttpRequest + textStatus + errorThrown); });
+            }
+        });
+    </script>
+</body>
+</html>

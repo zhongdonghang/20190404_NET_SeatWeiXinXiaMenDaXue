@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html lang="lang">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>预约座位</title>
+    <!-- 引入 WeUI -->
+    <link rel="stylesheet" href="~/dist/css/weui.min.css">
+    <link rel="stylesheet" href="~/dist/css/swiper.min.css">
+
+    <style type="text/css">
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body ontouchstart="">
+    <!-- 轮播图图片 -->
+    <div class="swiper-container" style="height: 150px;">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="/dist/img/index2.jpg" /></div>
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+    </div>
+    <!-- picker -->
+    <div class="weui-cells" style="margin-top: 0px;">
+        <a class="weui-cell weui-cell_access" href="javascript:;" id="datePicker">
+            <div class="weui-cell__bd">
+                <p>预约</p>
+            </div>
+            <div class="weui-cell__ft">
+                <input type="text" id="ShowTime"  readonly="" value='@{@DateTime.Now.ToString("yyyy-MM-dd")}' style="font-size:17px; text-align:center; border: 0px;outline:none;cursor: pointer;"/>
+            </div>
+        </a>
+    </div>
+    <!-- 带跳转列表项 -->
+    <div class="weui-cells">
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <span id="ShowMsg" style="text-align:center"></span>
+            </div>
+        </div>
+    </div>
+    <!-- 带图标，说明，跳转的列表项 -->
+    <div class="weui-cells" style="margin-top: 10px;" id="div_list">
+        @foreach (Model.J_GetCanBespeakRoomInfo item in ViewBag.List)
+        {
+        <a class="weui-cell weui-cell_access" href="/NewUser/GetRoomBesapeakState?date=@{@DateTime.Now.ToString("yyyy-MM-dd")}&roomNo=@{@item.RoomNo}&roomName=@{@item.RoomName}">
+            <div class="weui-cell__hd">
+                <img src="/dist/img/Seat1.png" alt="" style="width:20px;margin-right:5px;display:block">
+            </div>
+            <div class="weui-cell__bd">
+                <p>图书馆：@item.LibraryName</p>
+                <p>阅览室：@item.RoomName</p>
+            </div>
+            <div class="weui-cell__ft">去选座</div>
+        </a>
+        }
+    </div>
+    <!-- 引入 WeUI JS -->
+    <script type="text/javascript" src="https://res.wx.qq.com/open/libs/weuijs/1.1.4/weui.min.js"></script>
+    <script src="~/dist/js/zepto.min.js"></script>
+    <script type="text/javascript">
+        $('#datePicker').on('click', function () {
+            weui.datePicker({
+                start: new Date(), // 从今天开始
+                end: 2030,
+                onChange: function (result) {
+                    console.log(result);
+                },
+                onConfirm: function (result) {
+                    //console.log(result);
+                    changeTime = result[0] + '-' + (result[1] < 10 ? '0' + result[1] : result[1]) + '-' + (result[2] < 10 ? '0' + result[2] : result[2]);
+                    $("#ShowTime").val(changeTime);
+                    $.post("@Url.Action("GetReadingRoom", "NewUser")",
+                    {
+                        date: changeTime
+                    },
+                    function (data, textStatus) {
+                        if (textStatus == "success") {
+                            $("#div_list").html(data.message);
+                            setTimeout(function () {
+                                if (data.message == "") {
+                                    $("#ShowMsg").html("选择日期没有可预约的阅览室");
+                                }
+                                else {
+                                    $("#ShowMsg").html("可预约的阅览室");
+                                }
+                            }, 500);
+                        }
+                        else {
+                            alert("操作失败！");
+                            setTimeout(function () {
+                                $.hidePreloader();
+                            }, 1000);
+                        }
+                    }, "json");
+                },
+                id: 'datePicker'
+            });
+        });
+        $(document).ready(function () {
+            $.post("@Url.Action("GetReadingRoom", "NewUser")",
+                    {
+                        date: $("#ShowTime").val()
+                    },
+                    function (data, textStatus) {
+                        if (textStatus == "success") {
+                            $("#div_list").html(data.message);
+                            setTimeout(function () {
+                                if (data.message == "") {
+                                    $("#ShowMsg").html("选择日期没有可预约的阅览室");
+                                }
+                                else {
+                                    $("#ShowMsg").html("可预约阅览室");
+                                }
+                            }, 500);
+                        }
+                        else {
+                            alert("操作失败！");
+                            setTimeout(function () {
+                                $.hidePreloader();
+                            }, 1000);
+                        }
+                    }, "json");
+        });
+    </script>
+</body>
+</html>

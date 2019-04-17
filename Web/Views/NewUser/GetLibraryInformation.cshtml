@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html lang="lang">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>图书馆</title>
+    <!-- 引入 WeUI -->
+    <link rel="stylesheet" href="~/dist/css/weui.min.css" />
+</head>
+<body>
+    @foreach (Model.J_GetLibraryNowState item in ViewBag.List)
+    {
+    <div class="weui-panel weui-panel_access">
+        <div class="weui-panel__hd">@item.LibraryName</div>
+        <div class="weui-panel__bd">
+            @foreach (Model.J_RoomStatus room in item.RoomStatus)
+            {
+            <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+                <div class="weui-media-box__hd">
+                    <img class="weui-media-box__thumb" src="Img/lib.jpg" alt="">
+                </div>
+                <div class="weui-media-box__bd">
+                    <h4 class="weui-media-box__title">@room.RoomName</h4>
+                    <p class="weui-media-box__desc">总共 @room.SeatAmount_All 个位置,已使用 @room.SeatAmount_Used1 个 ，还有 @room.SeatAmount_Last  个空位</p>
+                </div>
+            </a>
+            }
+        </div>
+    </div>
+    }
+    @*<div class="weui-panel weui-panel_access">
+        <div class="weui-panel__hd">南区馆</div>
+        <div class="weui-panel__bd">
+            <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+                <div class="weui-media-box__hd">
+                    <img class="weui-media-box__thumb" src="/dist/img/seat.png" alt="">
+                </div>
+                <div class="weui-media-box__bd">
+                    <h4 class="weui-media-box__title">101自习室</h4>
+                    <p class="weui-media-box__desc">总共218个位置，已使用38个，还有180个空位。</p>
+                </div>
+            </a>
+            <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+                <div class="weui-media-box__hd">
+                    <img class="weui-media-box__thumb" src="/dist/img/seat.png" alt="">
+                </div>
+                <div class="weui-media-box__bd">
+                    <h4 class="weui-media-box__title">210报刊阅览室</h4>
+                    <p class="weui-media-box__desc">总共218个位置，已使用38个，还有180个空位。</p>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="weui-panel weui-panel_access">
+        <div class="weui-panel__hd">北区馆</div>
+        <div class="weui-panel__bd">
+            <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+                <div class="weui-media-box__hd">
+                    <img class="weui-media-box__thumb" src="/dist/img/seat.png" alt="">
+                </div>
+                <div class="weui-media-box__bd">
+                    <h4 class="weui-media-box__title">101自习室</h4>
+                    <p class="weui-media-box__desc">总共218个位置，已使用38个，还有180个空位。</p>
+                </div>
+            </a>
+            <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+                <div class="weui-media-box__hd">
+                    <img class="weui-media-box__thumb" src="/dist/img/seat.png" alt="">
+                </div>
+                <div class="weui-media-box__bd">
+                    <h4 class="weui-media-box__title">210报刊阅览室</h4>
+                    <p class="weui-media-box__desc">总共218个位置，已使用38个，还有180个空位。</p>
+                </div>
+            </a>
+        </div>
+    </div>*@
+</body>
+</html>

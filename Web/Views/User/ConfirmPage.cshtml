@@ -1,0 +1,268 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>预约座位</title>
+    <link href="/dist/css/frozen.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+</head>
+<body style="background-color:white;">
+    @*<section class="ui-placehold-img">
+        <span style="background-image:url(/Img/ConfirmPage.jpg)"></span>
+    </section>*@
+
+    <section class="ui-container ">
+        <div class="ui-slider" id="slider1">
+            <ul class="ui-slider-content" style="width: 100%">
+                <li>
+                    <span style="background-image:url(/Img/ConfirmPage.jpg)">
+                    </span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="ui-form ui-border-t">
+            <div class="list-block" style="margin-top: 0px;">
+                <ul>
+                    <!-- Text inputs -->
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">阅览室名称</div>
+                                <div class="item-input">
+                                    @ViewBag.RoomName
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">座位号</div>
+                                <div class="item-input">
+                                    @ViewBag.SeatShortNo
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">预约日期</div>
+                                <div class="item-input">
+                                    @ViewBag.Date
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">预约方式</div>
+                                <div class="item-input">
+                                    <select id="select_time">
+                                        <option value="-1" selected="selected">--请选择--</option>
+                                        @if (ViewBag.Date == DateTime.Now.ToString("yyyy-MM-dd"))
+                                        {
+                                            <option value="0">立即预约</option>
+                                        }
+                                        @if (ViewBag.IsCanSelectTime)
+                                        {
+                                            <option value="1">提前预约</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li id="li_time1" style="display:none;">
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">预约时间</div>
+                                <div class="item-input">
+                                    <input type="text" placeholder="选择预约时间" id="picker" value="" readonly="">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li id="li_time2" style="display:none;">
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">预约时间</div>
+                                <div id="yy_date" class="item-input">
+                                    @{@DateTime.Now.ToString("HH:mm")}
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li id="li_time3" style="display:none;">
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">签到时间段</div>
+                                        <div class="item-input">
+                                            @{@DateTime.Now.ToString("HH:mm")}-@{@DateTime.Now.AddMinutes(ViewBag.CheckKeepTime).ToString("HH:mm")}
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li id="li_time4" style="display:none;">
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">签到时间段</div>
+                                        <div id="qd_date" class="item-input">
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+        </div>
+        <div class="ui-btn-wrap">
+            <button id="btn_scan" class="ui-btn-lg ui-btn-primary " onclick="javascript:SubmitBesapeskSeat();">
+                确认预约
+            </button>
+        </div>
+    </section>
+
+    <!--分割线-->
+
+    
+
+    @*<div class="page">
+        
+
+    </div>*@
+    <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+    <script type="text/javascript">
+
+    $("#picker").picker({
+        toolbarTemplate: '<header class="bar bar-nav">\
+  <button class="button button-link pull-left"></button>\
+  <button class="button button-link pull-right close-picker" onclick="$("#picker").picker("close");">确定</button>\
+  <h1 class="title">请选择时间</h1>\
+  </header>',
+        cols: [{
+            textAlign: 'center',
+            values: @Html.Raw(ViewBag.TimeList)
+                  }]
+        });
+
+        $("#picker").change(function(){
+
+            var qd_date_a = new Date("@{@DateTime.Now.ToString("yyyy/MM/dd")} " + $("#picker").val() + ":00");
+            var qd_date_b = new Date("@{@DateTime.Now.ToString("yyyy/MM/dd")} " + $("#picker").val() + ":00");
+
+            qd_date_a.setMinutes(qd_date_a.getMinutes() - @{@ViewBag.CheckBeforeTime});
+            qd_date_b.setMinutes(qd_date_b.getMinutes() + @{@ViewBag.CheckLastTime});
+
+            //alert(qd_date_a);
+            //alert(qd_date_b);
+            //var date_a = new Date(qd_date - 1000 * 60 * 10);
+            //var date_b = qd_date;
+
+            //date_b.setMinutes(qd_date.getMinutes() + 20, qd_date.getSeconds(), 0);
+
+
+            //var a_mm = date_a.getMinutes() > 9 ? date_a.getMinutes() : "0" + date_a.getMinutes();
+            //var b_mm = date_b.getMinutes() > 9 ? date_b.getMinutes() : "0" + date_b.getMinutes();
+            //alert(date_b.getMinutes());
+            $("#qd_date").text((qd_date_a.getHours() == 0 ? "00" : qd_date_a.getHours())+":"+(qd_date_a.getMinutes() == 0 ? "00" : qd_date_a.getMinutes())+"-"+(qd_date_b.getHours() == 0 ? "00" : qd_date_b.getHours())+":"+(qd_date_b.getMinutes() == 0 ? "00" : qd_date_b.getMinutes()));
+            //$("#qd-date").text(qd_date.getHours());
+        });
+
+
+        $("#select_time").change(function(){
+
+            if ($("#select_time").val() == 1) {
+                $("#li_time1").show();
+                $("#li_time2").hide();
+                $("#li_time3").hide();
+                $("#li_time4").show();
+            }
+            else if($("#select_time").val() == 0)
+            {
+                //$("#yy_date").val();
+                $("#li_time2").show();
+                $("#li_time1").hide();
+                $("#li_time3").show();
+                $("#li_time4").hide();
+            }
+            else
+            {
+                $("#li_time1").hide();
+                $("#li_time2").hide();
+                $("#li_time3").hide();
+                $("#li_time4").hide();
+            }
+        });
+
+        function SubmitBesapeskSeat()
+        {
+            var time;
+            if ($("#select_time").val() == -1) {
+                alert("请选择预约方式");
+                return;
+            }
+            if ($("#select_time").val() == 1 && $("#picker").val() == "") {
+                alert("请选择预约时间");
+                return;
+            }
+
+            if ($("#select_time").val() == 1) {
+                time = $("#picker").val();
+            }
+            else
+            {
+                time = "none";
+            }
+
+            $.showPreloader('正在预约座位')
+            setTimeout(function () {
+                window.location.href = "/User/SeatState";
+            }, 2000);
+
+            //alert($("#hid_Time").val());
+            $.post("/User/SubmitBesapeskSeat/",
+                {
+                seatNo: "@{@ViewBag.SeatNo}",//$("#hid_seatNo").val(),
+                roomNo: "@{@ViewBag.RoomNo}",//$("#hid_roomNo").val(),
+                date:"@{@ViewBag.Date}",
+                time:time
+            },
+            function (data, textStatus) {
+                if (textStatus == "success") {
+                    if (data.isok == "yes") {
+                        //$content.on('click', '.alert-text-title-callback',function () {
+                        //    $.alert(data.message, '预约成功', function () {
+
+                        //    });
+                        //});
+
+                        alert(data.message);
+                        //$.showPreloader('加载座位信息');
+                        window.location.href = "/User/SeatState";
+                    }else
+                    {
+                        alert(data.message);
+                    }
+
+                }
+                else {
+                    alert("操作失败！");
+                }
+            }, "json").error(function (XMLHttpRequest, textStatus, errorThrown) { alert(XMLHttpRequest + textStatus + errorThrown); });
+    }
+    </script>
+    <script src="/dist/lib/zepto.min.js"></script>
+    <script src="/dist/js/frozen.js"></script>
+</body>
+</html>

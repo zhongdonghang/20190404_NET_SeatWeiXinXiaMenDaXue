@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html lang="lang">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>我的预约</title>
+    <!-- 引入 WeUI -->
+    <link rel="stylesheet" href="~/dist/css/weui.min.css" />
+    <link rel="stylesheet" href="~/dist/css/swiper.min.css">
+    <style type="text/css">
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+        body, html {
+            height: 100%;
+            -webkit-tap-highlight-color: transparent;
+        }
+    </style>
+</head>
+<body>
+    <!-- 使用 -->
+    <div class="weui-tab">
+        <div class="weui-tab__panel">
+            <!-- 轮播图图片 -->
+            <div class="swiper-container" style="height: 150px;">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="~/dist/img/index4.jpg" /></div>
+                </div>
+                <!-- Add Pagination -->
+                <div class="swiper-pagination"></div>
+            </div>
+            <div class="weui-panel" style="margin-top: 0px;">
+                @if (ViewBag.Count > 0)
+                {
+                    <div class="weui-panel__hd">已经预约</div>
+                }
+                else
+                {
+                    <div class="weui-panel__hd">暂无预约</div>
+                }
+                <div class="weui-panel__bd">
+                    @foreach (var item in ViewBag.List)
+                    {
+                        <div class="weui-media-box weui-media-box_text" data-appid="@item.Id">
+                            <h4 class="weui-media-box__title">预约：@item.BookTime</h4>
+                            <p class="weui-media-box__desc">阅览室：@item.RoomName</p>
+                            <p class="weui-media-box__desc">座位号：@item.SeatShortNo</p>
+                            <p class="weui-media-box__desc">提交时间：@item.SubmitDateTime</p>
+                            <p class="weui-media-box__desc">系统提醒：@item.Remark</p>
+                            <div class="button-sp-area" style="text-align: center;margin-top: 10px;">
+                                <a href="javascript:CancelBesapeak(@{@item.Id});" class="weui-btn weui-btn_mini weui-btn_warn" id="cToast">取消预约</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="weui-tabbar">
+            <a href="@Url.Action("Index", "NewUser")" class="weui-tabbar__item">
+                <img src="~/dist/img/home.png" alt="" class="weui-tabbar__icon">
+                <p class="weui-tabbar__label">主页</p>
+            </a>
+            <a href="@Url.Action("Profile", "NewUser")" class="weui-tabbar__item weui-bar__item_on">
+                <img src="~/dist/img/my.png" alt="" class="weui-tabbar__icon">
+                <p class="weui-tabbar__label">我的</p>
+            </a>
+        </div>
+    </div>
+            <script type="text/javascript" src="~/dist/js/weui.min.js"></script>
+            <script src="~/dist/js/zepto.min.js"></script>
+            <script type="text/javascript">
+                function CancelBesapeak(id) {
+                    $.post("@Url.Action("CancelBesapeak", "NewUser")",
+                    {
+                        bespeakId: id
+                    },
+                    function (data, textStatus) {
+                        if (textStatus == "success") {
+                            alert(data.message);
+                            location.reload();
+                        }
+                        else {
+                            alert("操作失败！");
+                        }
+                    }, "json");
+                }
+            </script>
+</body>
+</html>

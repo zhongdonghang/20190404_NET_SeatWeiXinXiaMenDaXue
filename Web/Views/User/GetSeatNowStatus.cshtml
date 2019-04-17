@@ -1,0 +1,168 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>查看座位状态</title>
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+</head>
+<body>
+    <div class="page">
+        <header class="bar bar-nav">
+            <h1 class="title">座位当前状态</h1>
+            <a class="icon icon-home pull-right open-panel" href="/User/Index"></a>
+        </header>
+        <div class="content native-scroll">
+            <div class="list-block" style="margin-top: 0px;">
+                <ul>
+                    <!-- Text inputs -->
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">阅览室</div>
+                                <div class="item-input">
+                                    @ViewBag.GetSeatNowStatus.RoomName
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">座位号</div>
+                                <div class="item-input">
+                                    @ViewBag.GetSeatNowStatus.SeatShortNo
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">当前状态</div>
+                                <div class="item-input">
+                                    @ViewBag.GetSeatNowStatus.StatusStr
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    @*<li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">可预约的日期</div>
+                                <div class="item-input">
+                                    @if (ViewBag.GetSeatNowStatus.CanBookingDate == "")
+                                    {
+                                        <div>无</div>
+                                    }
+                                    else
+                                    {
+                                        @ViewBag.GetSeatNowStatus.CanBookingDate
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </li>*@
+
+                </ul>
+            </div>
+            <div class="list-block inset">
+                <ul>
+                    <li id="Leave"><a href="#" class="item-link list-button">释放座位</a></li>
+                    <li id="ShortLeave"><a href="#" class="item-link list-button">暂离座位</a></li>
+                    <li id="CancelBook"><a href="#" class="item-link list-button">取消预约</a></li>
+                    <li id="CancelWait"><a href="#" class="item-link list-button">取消等待</a></li>
+                    <li id="ChangeSeat"><a href="#" class="item-link list-button">更换座位</a></li>
+                    <li id="BookSeat"><a href="#" class="item-link list-button">预约座位</a></li>
+                </ul>
+            </div>
+            
+            @if (ViewBag.DateCount > 0)
+            {
+                 <div class="content-block-title">该座位可预约日期</div>
+                 <div class="list-block">
+                    <ul>
+                        @foreach (string item in ViewBag.GetSeatNowStatus.CanBookingDate)
+                        {
+                            <a href="/User/ConfirmPage?date=@{@Convert.ToDateTime(item).ToString("yyyy-MM-dd")}&roomNo=@{@ViewBag.roomNo}&roomName=@{@ViewBag.GetSeatNowStatus.RoomName}&seatNo=@{@ViewBag.seatNo}&seatShortNo=@{@ViewBag.GetSeatNowStatus.SeatShortNo}">
+                                <li class="item-content item-link">
+
+                                    <div class="item-media"><i class="icon icon-f7"></i></div>
+                                    <div class="item-inner">
+                                        <div class="item-title">@{@Convert.ToDateTime(item).ToString("yyyy-MM-dd")}</div>
+                                        <div class="item-after">预约</div>
+                                    </div>
+
+                                </li>
+                            </a>
+                            
+                        }                        
+                    </ul>
+                </div>
+            }
+            else
+            {
+                <div class="content-block-title">该座位暂无可预约日期</div>
+            }
+
+            </div>
+        </div>
+            <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+            <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+            <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+            <script>
+
+                $("#Leave,#ShortLeave,#CancelWait,#CancelBook,#ChangeSeat,#BookSeat").hide();
+
+                var str = "@{@ViewBag.GetSeatNowStatus.CanOperation}";
+                var strs = new Array();
+                strs = str.split(";");
+                $.each(strs, function (i, val) {
+                    $('#' + val).show();
+                });
+
+                //Leave  ShortLeave   CancelWait   CancelBook
+                $("#ChangeSeat").click(function () {
+                    $.post("/User/ChangeSeat/",
+                        {
+                            seatNo: "@{@ViewBag.seatNo}",
+                            roomNo:"@{@ViewBag.roomNo}"
+                        },
+                        function (data, textStatus) {
+                            if (textStatus == "success") {
+                                alert(data.message);
+                                window.location.href = "/User/Index";
+                            }
+                            else {
+                                alert("操作失败！");
+                            }
+                        }, "json").error(function (XMLHttpRequest, textStatus, errorThrown)
+
+                        { alert(XMLHttpRequest + textStatus + errorThrown); });
+                });
+
+                $("#Leave,#ShortLeave,#CancelWait,#CancelBook").click(function () {
+                    $.post("/User/SeatOperation/",
+                        {
+                            action: $(this).attr("id")
+                        },
+                        function (data, textStatus) {
+                            if (textStatus == "success") {
+                                alert(data.message);
+                                window.location.href = "/User/Index";
+                            }
+                            else {
+                                alert("操作失败！");
+                            }
+                        }, "json").error(function (XMLHttpRequest, textStatus, errorThrown)
+
+                        { alert(XMLHttpRequest + textStatus + errorThrown); });
+                });
+            </script>
+</body>
+</html>

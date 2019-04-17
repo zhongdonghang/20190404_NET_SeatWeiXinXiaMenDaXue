@@ -1,0 +1,109 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>个人中心</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+
+    <link href="/dist/css/frozen.css" rel="stylesheet" />
+    <script type="text/javascript">
+
+        function goQueryReacord()
+        {
+            location = '/User/RecordQuery';
+        }
+
+        function goMySeat() {
+            location = '/User/SeatState';
+        }
+
+        function goSubscribeSeat() {
+            location = '/User/SubscribeSeat';
+        }
+
+    </script>
+</head>
+<body>
+
+    @*<header class="ui-header ui-header-positive ui-border-b">
+        <h1>个人中心</h1>
+    </header>*@
+    <footer class="ui-footer ui-footer-btn">
+        <ul class="ui-tiled ui-border-t">
+            <li class="ui-border-r"><div><a onclick="goQueryReacord()">记录查询</a></div></li>
+            <li data-href="ui.html" class="ui-border-r"><div><a onclick="goSubscribeSeat()">座位预约</a></div></li>
+            <li data-href="js.html"><div><a onclick="goMySeat()">我的座位</a></div></li>
+        </ul>
+    </footer>
+    <section class="ui-container ">
+        <div class="ui-slider" id="slider1">
+            <ul class="ui-slider-content" style="width: 100%">
+                <li>
+                    <span style="background-image:url(/Img/me.jpg)">
+                        <br />
+                        <div class="ui-avatar-lg">
+                            <span style="background-image:url(@{@ViewBag.User.HeadImgUrl})"></span>
+                        </div>
+                    </span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="ui-form ui-border-t">
+                <div class="ui-form-item ui-border-b">
+                    <label>
+                        姓名
+                    </label>
+                    <input type="text" value="@ViewBag.User.Name/@ViewBag.User.NickName">
+                </div>
+                <div class="ui-form-item  ui-border-b">
+                    <label>
+                        学号
+                    </label>
+                    <input type="text" value="@ViewBag.User.CardNo">
+                </div>
+                <div class="ui-form-item  ui-border-b">
+                    <label>
+                        院系属性
+                    </label>
+                    <input type="text" value="@ViewBag.User.ReaderType">
+                </div>
+        </div>
+
+        @foreach (Model.J_GetLibraryNowState item in ViewBag.List)
+        {
+            <div class="ui-badge-wrap" style="width: 100px;line-height: 50px;">@item.LibraryName</div>
+            <ul class="ui-list ui-border-tb">
+                @foreach (Model.J_RoomStatus room in item.RoomStatus)
+                {
+                    <li>
+                        <div class="ui-avatar">
+                            <span style="background-image:url(/Img/lib.jpg)"></span>
+                        </div>
+                        <div class="ui-list-info ui-border-t">
+                            <h4 class="ui-nowrap">@room.RoomName</h4>
+                            <p class="ui-nowrap">总共 @room.SeatAmount_All 个位置,已使用 @room.SeatAmount_Used1 个 ，还有 @room.SeatAmount_Last  个空位</p>
+                            <div class="ui-progress">
+                                <span style="width:@room.Percent "></span>
+                            </div>
+                        </div>
+                    </li>
+                }
+
+
+            </ul>
+        }
+       
+
+
+    </section>
+
+
+    <script src="/dist/lib/zepto.min.js"></script>
+    <script src="/dist/js/frozen.js"></script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+.navbar-red {
+	background-color: #d11526;
+	border-color: #c21222;
+	color: #FFF;
+}
+.navbar-header {
+	position: relative;
+}
+.navbar-header .page-title {
+	height: 50px;
+	line-height: 50px;
+	position: absolute;
+	text-align: center;
+	width: 100%;
+	z-index: -1;
+	font-size: 1em;
+	}
+	.navbar-red a {
+		color: #fff;
+	}
+	.navbar-red .navbar-toggle .icon-bar {
+		background-color: #fff;
+	}
+	.navbar-red .navbar-toggle {
+		background-color: #BE2D29;
+	}
+	.navbar-toggle {
+		margin-left: 15px;
+		float: left;
+	}
+	.navbar-red .nav>li>a:focus,
+	.navbar-red .nav>li>a:hover {
+		text-decoration: none;
+		background-color: #910000;
+	}
+	.navbar-header .navbar-brand{
+		font-size: 14px;
+	}

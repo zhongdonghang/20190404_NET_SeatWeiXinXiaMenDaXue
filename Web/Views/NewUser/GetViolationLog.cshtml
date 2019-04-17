@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html lang="lang">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>违规/黑名单</title>
+    <!-- 引入 WeUI -->
+    <link rel="stylesheet" href="~/dist/css/weui.min.css">
+    <link rel="stylesheet" href="~/dist/css/swiper.min.css">
+    <style type="text/css">
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body ontouchstart="">
+    <!-- 轮播图图片 -->
+    <div class="swiper-container" style="height: 150px;">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="~/dist/img/index4.jpg" /></div>
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+    </div>
+
+    <div class="weui-panel" style="margin-top:0px;">
+        @foreach (var item in ViewBag.List)
+        {
+            <div class="weui-form-preview">
+                <div class="weui-form-preview__hd">
+                    <label class="weui-form-preview__label">违规记录</label>
+                    <em class="weui-form-preview__value">违规操作</em>
+                </div>
+                <div class="weui-form-preview__bd">
+                    <p>
+                        <label class="weui-form-preview__label">阅览室</label>
+                        <span class="weui-form-preview__value">@item.RoomName</span>
+                    </p>
+                    <p>
+                        <label class="weui-form-preview__label">座位号</label>
+                        <span class="weui-form-preview__value">@item.SeatNo</span>
+                    </p>
+                    <p>
+                        <label class="weui-form-preview__label">违规时间</label>
+                        <span class="weui-form-preview__value">@item.EnterOutTime</span>
+                    </p>
+                    <p>
+                        <label class="weui-form-preview__label">违规原因</label>
+                        <span class="weui-form-preview__value" style="text-align:left;">@item.Remark</span>
+                    </p>
+                </div>
+            </div>
+        }
+      @foreach (var item in ViewBag.ListBlack)
+      {
+      <div class="weui-panel__hd">黑名单记录</div>
+        <div class="weui-panel__bd">
+            <div class="weui-media-box weui-media-box_text">
+                <h4 class="weui-media-box__title">@item.ReMark</h4>
+                <p class="weui-media-box__desc">离开方式：@item.OutBlacklistModeStr</p>
+                <p class="weui-media-box__desc">进入时间：@item.AddTime</p>
+                <p class="weui-media-box__desc">离开时间：@item.OutTime</p>
+                <p class="weui-media-box__desc">系统提醒：请遵守图书馆的相关规定，营造一个良好的图书馆环境。</p>
+            </div>
+        </div>
+      }
+    </div>
+</body>
+</html>

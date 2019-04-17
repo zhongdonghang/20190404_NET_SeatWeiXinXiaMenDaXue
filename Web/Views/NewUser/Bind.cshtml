@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html lang="lang">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>账号绑定</title>
+    <!-- 引入 WeUI -->
+    <link rel="stylesheet" href="~/dist/css/weui.min.css">
+    <link rel="stylesheet" href="~/dist/css/swiper.min.css">
+    <style type="text/css">
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+        p{
+            text-indent:2em;
+         }
+    </style>
+</head>
+<body ontouchstart="">
+    <!-- 轮播图图片 -->
+    <div class="swiper-container" style="height: 150px;">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <img src="~/dist/img/index4.jpg" />
+            </div>
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+    </div>
+    <div class="weui-panel" style="margin-top:0px;">
+        <div class="weui-panel__hd">扫码绑定步骤</div>
+        <div class="weui-panel__bd">
+            <div class="weui-media-box weui-media-box_text">
+                <h4 class="weui-media-box__title">1．预约账号激活</h4>
+                <p class="weui-media-box__desc">登录预约网站时需要一个已经在终端机激活的账号。</p>
+            </div>
+        </div>
+        <div class="weui-panel__bd">
+            <div class="weui-media-box weui-media-box_text">
+                <h4 class="weui-media-box__title">2．登录预约网站</h4>
+                <p class="weui-media-box__desc">在激活账号之后登录预约网站，在预约网站扫描“云座位”公众号二维码，关注“云座位”公众号。</p>
+            </div>
+        </div>
+        <div class="weui-panel__bd">
+            <div class="weui-media-box weui-media-box_text">
+                <h4 class="weui-media-box__title">3．绑定预约账号</h4>
+                <p class="weui-media-box__desc">进入“云座位”公众号内点击“账号绑定”，扫描预约网站上的个人二维码。完成账号绑定。</p>
+            </div>
+        </div>
+        <div class="weui-panel__bd">
+            <div class="weui-media-box weui-media-box_text">
+                <h4 class="weui-media-box__title">4．使用微信</h4>
+                <p class="weui-media-box__desc">用户成功绑定账号后即可通过微信预约座位，操作座位状态，查询预约座位。</p>
+            </div>
+        </div>
+    </div>
+    <a href="javascript:;" class="weui-btn weui-btn_primary" style="width: 250px;margin-top:10px;" id="btn_scan">扫码绑定</a>
+
+    <script src="~/dist/lib/zepto.min.js"></script>
+    <script src="~/dist/js/frozen.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script>
+        wx.config({
+            debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: '@Model.AppId', // 必填，公众号的唯一标识
+            timestamp: '@Model.Timestamp', // 必填，生成签名的时间戳
+            nonceStr: '@Model.NonceStr', // 必填，生成签名的随机串
+            signature: '@Model.Signature',// 必填，签名
+            jsApiList: [
+                    'checkJsApi',
+                    'onMenuShareTimeline',
+                    'onMenuShareAppMessage',
+                    'hideMenuItems',
+                    'showMenuItems',
+                    'hideAllNonBaseMenuItem',
+                    'showAllNonBaseMenuItem',
+                    'getNetworkType',
+                    'hideOptionMenu',
+                    'showOptionMenu',
+                    'closeWindow',
+                    'scanQRCode',
+                    'openProductSpecificView'
+            ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2。详见：http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html
+        });
+
+
+        wx.error(function (res) {
+            console.log(res);
+            alert('验证失败');
+        });
+
+        wx.ready(function () {
+            $("#btn_scan").click(function () {
+                wx.scanQRCode({
+                    needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+                    scanType: ["qrCode"], // 可以指定扫二维码还是一维码，默认二者都有
+                    success: function (res) {
+                        var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
+                        $.post("@Url.Action("ScanBindUserInfo", "NewUser")",
+                        {
+                            ScanResult: result
+                        },
+                        function (data, textStatus) {
+                            if (textStatus == "success") {
+
+                                if (data.status == "yes") {
+                                    alert(data.message);
+                                    //window.location.href = "/User/Index";
+                                    wx.closeWindow();
+                                }
+                                else {
+                                    alert("绑定失败:" + data.message);
+                                }
+                            }
+                            else {
+                                alert("操作失败！");
+                            }
+                        }, "json").error(function (XMLHttpRequest, textStatus, errorThrown) { alert(XMLHttpRequest + textStatus + errorThrown); });
+
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,150 @@
+﻿@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="jundabei">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <title>用户中心</title>
+    <link href="~/Content/frozen/css/frozen.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="http://i.gtimg.cn/vipstyle/mobile/client/gamecenter/frozenui/css/basic.css?bid=2162">
+
+    <link rel="stylesheet" href="http://i.gtimg.cn/vipstyle/mobile/embed/v2/css/vc.css?cid=554&max_age=8640000">
+    <link rel="stylesheet" href="http://imgcache.gtimg.cn/vipstyle/special/birthday2013vc/css/birth.css">
+
+    <script src="http://3gimg.qq.com/svip/html5/common/zepto.min.js"></script>
+    <script src="~/Content/frozen/js/frozen.js"></script>
+    <style>
+        .bottom-menu li.current {
+            color: #e72424;
+        }
+
+        .gc-tiled {
+            position: fixed;
+            bottom: 0px;
+            width: 100%;
+            left: 0px;
+            height: 50px;
+            background: #1f2127;
+            color: #a6a6a6;
+            z-index: 9999;
+            font-size: 13px;
+            line-height: 15px;
+        }
+
+        header.vip:after {
+            background-size: 60px auto;
+        }
+    </style>
+
+</head>
+<body>
+
+
+    <header class="embed-header vip">
+        <!-- 超级会员 -->
+        <div class="embed-dear">
+            <div class="embed-dear-in" style="font-size: 20px;margin-left: 10px;">
+                <p class="nickname" style="max-width: 100%;">欢迎您：</p>
+            </div>
+        </div>
+        <div class="embed-tbar">
+            <b class="btn-ucenter"><span>个人中心</span></b>
+            <b class="btn-checkin"><span>每日签到</span></b>
+        </div>
+    </header>
+
+    <article class="embed-article">
+
+        <div id="div_site">
+
+
+        </div>
+
+        <section class="ui-panel index-list-hot" id="hot_main">
+            <div class="gc-list-grid">
+                <ul class="ui-grid-trisect ui-grid-game clearfix" id="hot_container">
+                    <li onclick="javascript: window.location.href = '/Demo/Index';">
+                        <div class="grid-inner ui-border-tr">
+                            <div class="thumb ui-gameicon-ph">
+                                <span class="img" style="background-image:url(http://download.wegame.qq.com/gc/formal/common/1104311365/thumImg.png)"></span>
+                                <i class="ui-tag-game" style="display:none"><span></span></i>
+                            </div>
+                            <div class="ui-txt-padding">
+                                <h4>个人信息</h4>
+                            </div>
+                        </div>
+                    </li>
+                    <li onclick="javascript: window.location.href = '/Demo/Index';">
+                        <div class="grid-inner ui-border-tr">
+                            <div class="thumb ui-gameicon-ph">
+                                <span class="img" style="background-image:url(http://download.wegame.qq.com/gc/formal/common/1104311365/thumImg.png)"></span>
+                                <i class="ui-tag-game" style="display:none"><span></span></i>
+                            </div>
+                            <div class="ui-txt-padding">
+                                <h4>当日预约</h4>
+                            </div>
+                        </div>
+                    </li>
+                    <li onclick="javascript: window.location.href = '/Demo/Index';">
+                        <div class="grid-inner ui-border-tr">
+                            <div class="thumb ui-gameicon-ph">
+                                <span class="img" style="background-image:url(http://download.wegame.qq.com/gc/formal/common/1104311365/thumImg.png)"></span>
+                                <i class="ui-tag-game" style="display:none"><span></span></i>
+                            </div>
+                            <div class="ui-txt-padding">
+                                <h4>提前预约</h4>
+                            </div>
+                        </div>
+                    </li>
+                    <li onclick="javascript: window.location.href = '/Demo/Index';">
+                        <div class="grid-inner ui-border-tr">
+                            <div class="thumb ui-gameicon-ph">
+                                <span class="img" style="background-image:url(http://download.wegame.qq.com/gc/formal/common/1104311365/thumImg.png)"></span>
+                                <i class="ui-tag-game" style="display:none"><span></span></i>
+                            </div>
+                            <div class="ui-txt-padding">
+                                <h4>预约记录</h4>
+                            </div>
+                        </div>
+                    </li>
+                    <li onclick="javascript: window.location.href = '/Demo/Index';">
+                        <div class="grid-inner ui-border-tr">
+                            <div class="thumb ui-gameicon-ph">
+                                <span class="img" style="background-image:url(http://download.wegame.qq.com/gc/formal/common/1104311365/thumImg.png)"></span>
+                                <i class="ui-tag-game" style="display:none"><span></span></i>
+                            </div>
+                            <div class="ui-txt-padding">
+                                <h4>进出记录</h4>
+                            </div>
+                        </div>
+                    </li>
+                    <li onclick="javascript: window.location.href = '/Demo/Index';">
+                        <div class="grid-inner ui-border-tr">
+                            <div class="thumb ui-gameicon-ph">
+                                <span class="img" style="background-image:url(http://download.wegame.qq.com/gc/formal/common/1104311365/thumImg.png)"></span>
+                                <i class="ui-tag-game" style="display:none"><span></span></i>
+                            </div>
+                            <div class="ui-txt-padding">
+                                <h4>黑名单记录</h4>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+
+    </article>
+
+
+</body>
+</html>

@@ -1,0 +1,222 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>我的座位</title>
+    <link href="/dist/css/frozen.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+    <script>
+        function MyCode() {
+            window.location.href = "/User/ShowMyQRCode?_r=" + Math.random() + "";
+        }
+
+    </script>
+</head>
+<body>
+
+    <section class="ui-container ">
+        <div class="ui-slider" id="slider1">
+            <ul class="ui-slider-content" style="width: 100%">
+                <li>
+                    <span style="background-image:url(/Img/myseat.jpg)">
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <div class="list-block" style="margin-top: 0px;">
+            <ul>
+                <!-- Text inputs -->
+                <li>
+                    <div class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title label">阅览室</div>
+                            <div class="item-input">
+                                @if (ViewBag.UserNowState.InRoom == "")
+                                {
+                                    <div>无</div>
+                                }
+                                else
+                                {
+                                    @ViewBag.UserNowState.InRoom
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title label">座位号</div>
+                            <div class="item-input">
+                                @if (ViewBag.UserNowState.SeatNum == "")
+                                {
+                                    <div>无</div>
+                                }
+                                else
+                                {
+                                    @ViewBag.UserNowState.SeatNum
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title label">在座状态</div>
+                            <div class="item-input">
+
+                                @if (ViewBag.UserNowState.StatusStr == "没有座位")
+                                {
+                                    <a href="/User/SubscribeSeat" class="button button-warning">没有座位？马上预约一个！</a>
+                                }
+                                else
+                                {
+                                    @ViewBag.UserNowState.StatusStr
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title label">操作时间</div>
+                            <div class="item-input">
+                                @ViewBag.UserNowState.Time
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title label">备注</div>
+                            <div class="item-input">
+                                @if (ViewBag.UserNowState.NowStatusRemark == "")
+                                {
+                                    <div>无</div>
+                                }
+                                else
+                                {
+                                    <p>
+                                        @{@ViewBag.UserNowState.NowStatusRemark}
+                                    </p>
+                                 }
+
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        @*<div class="ui-btn-wrap">
+                <button id="btn_scan" onclick="javascript: MyCode();" class="ui-btn-lg ui-btn-primary ">
+                    我的座位码
+                </button>
+            </div>*@
+        <div class="list-block inset">
+            <ul>
+                <li id="CheckBook"><a href="#" class="item-link list-button">座位签到</a></li>
+                <li id="ComeBack"><a href="#" class="item-link list-button">暂离回来</a></li>
+                <li id="Leave"><a href="#" class="item-link list-button">释放座位</a></li>
+                <li id="ShortLeave"><a href="#" class="item-link list-button">暂离座位</a></li>
+                <li id="CancelBook"><a href="#" class="item-link list-button">取消预约</a></li>
+                <li id="CancelWait"><a href="#" class="item-link list-button">取消等待</a></li>
+            </ul>
+        </div>
+
+        @if (ViewBag.Count > 0)
+            {
+            <div class="content-block-title">有效预约记录</div>
+        }
+        @foreach (var item in ViewBag.List)
+            {
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-content-inner" data-appid="@item.Id">
+                        <div class="item-title"><b>预约时间：@item.BookTime</b></div>
+                        <div class="item-subtitle">阅览室：@item.RoomName</div>
+                        <div class="item-subtitle">提交时间：@item.SubmitDateTime</div>
+                        <div class="item-text">备注：@item.Remark</div>
+                        @if (item.IsValid)
+                        {
+                            <div class="item-after"><a class="button button-fill button-danger" href="javascript:CancelBesapeak(@{@item.Id});">取消预约</a></div>
+    }
+                    </div>
+                </div>
+            </div>
+    }
+
+
+
+    </section>
+
+    <!--分割线-->
+
+    <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+    <script>
+
+        $("#Leave,#ShortLeave,#CancelWait,#CancelBook,#ComeBack,#CheckBook").hide();
+
+        var str = "@{@ViewBag.UserNowState.CanOperation}";
+        var strs = new Array();
+        strs = str.split(";");
+        $.each(strs, function (i, val) {
+            $('#' + val).show();
+        });
+
+        //Leave  ShortLeave   CancelWait   CancelBook
+        $("#Leave,#ShortLeave,#CancelWait,#CancelBook,#ComeBack,#CheckBook").click(function () {
+
+            if (confirm("请确认您的操作")) {
+                //点击确定后操作
+                $.post("/User/SeatOperation/",
+                    {
+                        action: $(this).attr("id")
+                    },
+                    function (data, textStatus) {
+                        if (textStatus == "success") {
+                            alert(data.message);
+                            location.reload();
+                        }
+                        else {
+                            alert("操作失败！");
+                        }
+                    }, "json").error(function (XMLHttpRequest, textStatus, errorThrown) { alert(XMLHttpRequest + textStatus + errorThrown); });
+
+            }
+
+
+
+        });
+        function CancelBesapeak(id) {
+            $.post("/User/CancelBesapeak/",
+            {
+                bespeakId: id
+            },
+            function (data, textStatus) {
+                if (textStatus == "success") {
+                    alert(data.message);
+                    location.reload();
+                }
+                else {
+                    alert("操作失败！");
+                }
+            }, "json");
+        }
+    </script>
+    <script src="/dist/lib/zepto.min.js"></script>
+    <script src="/dist/js/frozen.js"></script>
+</body>
+</html>

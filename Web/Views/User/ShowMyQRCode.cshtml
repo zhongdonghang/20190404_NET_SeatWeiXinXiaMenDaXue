@@ -1,0 +1,49 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>我的座位码</title>
+    <link href="/dist/css/frozen.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+    <style type="text/css">
+        *{margin: 0;padding: 0;}
+    div{
+        vertical-align: middle;
+        text-align: center;
+        border:0px ;
+    }
+    img {
+        width: 242px;
+        height: 242px;
+    }
+
+    </style>
+
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+</head>
+<body>
+    <p></p>
+    <p></p>
+    <p></p>
+        <div >
+            <img  src="@ViewBag.QRCodeImage" />
+        </div>
+
+
+    <!--分割线-->
+
+    <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+    <script src="/dist/lib/zepto.min.js?a=1"></script>
+    <script src="/dist/js/frozen.js"></script>
+</body>
+</html>

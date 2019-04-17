@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html lang="lang">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>周榜</title>
+    <!-- 引入 WeUI -->
+    <link rel="stylesheet" href="~/dist/css/weui.min.css" />
+    <link rel="stylesheet" href="~/dist/css/example.css" />
+    <link rel="stylesheet" href="~/dist/css/swiper.min.css">
+    <style type="text/css">
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body ontouchstart>
+    <!-- 使用 -->
+    <!-- 轮播图图片 -->
+    <div class="swiper-container" style="height: 150px;">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">@*<img src="/dist/img/king.jpg" />*@此功能正在建设中，请各位同学再给我们点时间！！！</div>
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+    </div>
+    <div class="weui-tab">
+        <div class="weui-navbar">
+            <a href="@Url.Action("RankAll", "NewUser")" class="weui-navbar__item">
+                <p class="weui-tabbar__label">总榜</p>
+            </a>
+            <a href="@Url.Action("RankMonth", "NewUser")" class="weui-navbar__item">
+                <p class="weui-tabbar__label">月榜</p>
+            </a>
+            <a href="@Url.Action("RankWeek", "NewUser")" class="weui-navbar__item weui-bar__item_on">
+                <p class="weui-tabbar__label">周榜</p>
+            </a>
+        </div>
+        @*<div class="weui-tab__panel">
+            <div>
+                <div class="weui-cells">
+                    <div class="weui-cell">
+                        <p>1</p>
+                        <div class="weui-cell__hd"><img src="/dist/img/seat.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
+                        <div class="weui-cell__bd">
+                            <p>小z</p>
+                            <p class="weui-media-box__desc">华东政法大学</p>
+                        </div>
+                        <div class="weui-cell__ft">996.5小时</div>
+                    </div>
+                    <div class="weui-cell">
+                        <p>2</p>
+                        <div class="weui-cell__hd"><img src="/dist/img/seat.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
+                        <div class="weui-cell__bd">
+                            <p>小张</p>
+                            <p class="weui-media-box__desc">华东政法大学</p>
+                        </div>
+                        <div class="weui-cell__ft">953.2小时</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="weui-tabbar">
+            <a href="/NewUser/Index" class="weui-tabbar__item weui-bar__item_on">
+                <img src="/dist/img/home.png" alt="" class="weui-tabbar__icon">
+                <p class="weui-tabbar__label">主页</p>
+            </a>
+            <a href="/NewUser/Profile" class="weui-tabbar__item">
+                <img src="/dist/img/my.png" alt="" class="weui-tabbar__icon">
+                <p class="weui-tabbar__label">我的</p>
+            </a>
+        </div>*@
+    </div>
+    <script src="~/dist/js/swiper.min.js"></script>
+    <script src="~/dist/js/zepto.min.js"></script>
+
+</body>
+</html>

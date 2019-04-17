@@ -1,0 +1,58 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>账号解绑</title>
+    <link href="/dist/css/frozen.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/Content/frozen/css/frozen.css">
+</head>
+<body>
+    <section class="ui-notice">
+        <i></i>
+        <p>解绑后需要重新绑定才使用哦</p>
+        <div class="ui-notice-btn">
+            <button class="ui-btn-danger ui-btn-lg" id="btn_scan">解除绑定</button>
+        </div>
+        <div class="ui-notice-btn">
+            <button class="ui-btn-danger ui-btn-lg" id="btn_TestLayout">测试（不要点）</button>
+        </div>
+    </section>
+
+    <script src="/Content/frozen/js/lib/zeptojs/zepto.min.js"></script>
+    <script src="/Content/frozen/js/frozen.js"></script>
+    <script>
+        $("#btn_scan").click(function () {
+            if (confirm("确定要解除绑定吗？")) {
+                $("#btn_scan").text("解绑中...");
+                $("#btn_scan").attr({ "disabled": "disabled" });
+                $.post("/User/CancelBindAction/",
+                        {},
+                        function (data, textStatus) {
+                            if (textStatus == "success") {
+                                if (data.status == "yes") {
+                                    alert(data.message);
+                                    window.location.href = "/User/Index";
+                                }
+                                else {
+                                    alert("解绑失败:" + data.message);
+                                }
+                            }
+                            else {
+                                alert("操作失败！");
+                            }
+                 }, "json").error(function (XMLHttpRequest, textStatus, errorThrown) { alert(XMLHttpRequest + textStatus + errorThrown); });
+            }
+        });
+
+        $("#btn_TestLayout").click(function () {
+            window.location.href = "/NewUser/Index";
+        });
+    </script>
+</body>
+</html>
