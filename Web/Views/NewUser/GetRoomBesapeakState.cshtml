@@ -20,7 +20,7 @@
         <ul>
             @foreach (Model.J_GetRoomBesapeakState item in ViewBag.List)
             {
-                <li><a href="/NewUser/ConfirmPage?date=@{@ViewBag.Date}&roomNo=@{@ViewBag.RoomNo}&roomName=@{@ViewBag.RoomName}&seatNo=@{@item.SeatNo}&seatShortNo=@{@item.SeatShortNo}" class="am-btn am-btn-primary am-round">@item.SeatShortNo</a></li>
+                <li><a href="/seatwx/NewUser/ConfirmPage?date=@{@ViewBag.Date}&roomNo=@{@ViewBag.RoomNo}&roomName=@{@ViewBag.RoomName}&seatNo=@{@item.SeatNo}&seatShortNo=@{@item.SeatShortNo}" class="am-btn am-btn-primary am-round">@item.SeatShortNo</a></li>
             }
         </ul>
     </div>

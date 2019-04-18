@@ -33,7 +33,7 @@
     <!-- 轮播图图片 -->
     <div class="swiper-container" style="height: 150px;">
         <div class="swiper-wrapper">
-            <div class="swiper-slide"><img src="/dist/img/index2.jpg" /></div>
+            <div class="swiper-slide"><img src="~/dist/img/index2.jpg" /></div>
         </div>
         <!-- Add Pagination -->
         <div class="swiper-pagination"></div>
@@ -61,9 +61,9 @@
     <div class="weui-cells" style="margin-top: 10px;" id="div_list">
         @foreach (Model.J_GetCanBespeakRoomInfo item in ViewBag.List)
         {
-        <a class="weui-cell weui-cell_access" href="/NewUser/GetRoomBesapeakState?date=@{@DateTime.Now.ToString("yyyy-MM-dd")}&roomNo=@{@item.RoomNo}&roomName=@{@item.RoomName}">
+        <a class="weui-cell weui-cell_access" href="@Url.Action("GetRoomBesapeakState","NewUser")?date=@{@DateTime.Now.ToString("yyyy-MM-dd")}&roomNo=@{@item.RoomNo}&roomName=@{@item.RoomName}">
             <div class="weui-cell__hd">
-                <img src="/dist/img/Seat1.png" alt="" style="width:20px;margin-right:5px;display:block">
+                <img src="~/dist/img/Seat1.png" alt="" style="width:20px;margin-right:5px;display:block">
             </div>
             <div class="weui-cell__bd">
                 <p>图书馆：@item.LibraryName</p>

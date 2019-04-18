@@ -41,7 +41,7 @@ namespace Web.Controllers
         public ActionResult Profile()
         {
             var u = (Session["User"] as tb_User);
-            SeatManage.SeatManageComm.WriteLog.Write(u.NickName + "&hello,NewLayout");
+           // SeatManage.SeatManageComm.WriteLog.Write(u.NickName + "&hello,NewLayout");
             //  SeatManage.SeatManageComm.WriteLog.Write("用户：" + u.CardNo);
             ViewBag.User = DbSession.Default.From<tb_User>().Where(tb_User._.ID == u.ID).ToFirst();
             string msg;
@@ -374,7 +374,7 @@ namespace Web.Controllers
             List<J_GetCanBespeakRoomInfo> list = JSONSerializer.JSONStringToList<J_GetCanBespeakRoomInfo>(msg);
             foreach (J_GetCanBespeakRoomInfo item in list)
             {
-                str += "<a class=\"weui-cell weui-cell_access\" href=\"/NewUser/GetRoomBesapeakState?date=" + date + "&roomNo=" + item.RoomNo + "&roomName=" + item.RoomName + "\">" +
+                str += "<a class=\"weui-cell weui-cell_access\" href=\"/seatwx/NewUser/GetRoomBesapeakState?date=" + date + "&roomNo=" + item.RoomNo + "&roomName=" + item.RoomName + "\">" +
                             "<div class=\"weui-cell__hd\"><img src=\"/dist/img/Seat1.png\" alt=\"\" style=\"width:20px;margin-right:5px;display:block\"></div>" +
                                   "<div class=\"weui-cell__bd\"><p>图书馆：" + item.LibraryName + "</p><p>阅览室：" + item.RoomName + "</p>" +
                                   "</div>" +
@@ -574,7 +574,12 @@ namespace Web.Controllers
             {
                 return RedirectToAction("Profile", "NewUser");
             }
-            var jssdkUiPackage = JSSDKHelper.GetJsSdkUiPackage(GetAppSettings.AppID, GetAppSettings.AppSecret, "http://wechat.gxchuwei.com/NewUser/Bind");
+            var jssdkUiPackage = JSSDKHelper.GetJsSdkUiPackage(GetAppSettings.AppID, GetAppSettings.AppSecret, "https://lib.xmu.edu.cn/seatwx/NewUser/Bind");
+
+            //SeatManage.SeatManageComm.WriteLog.Write(jssdkUiPackage.AppId.ToString());
+            //SeatManage.SeatManageComm.WriteLog.Write(jssdkUiPackage.NonceStr.ToString());
+            //SeatManage.SeatManageComm.WriteLog.Write(jssdkUiPackage.Signature.ToString());
+            //SeatManage.SeatManageComm.WriteLog.Write(jssdkUiPackage.Timestamp.ToString());
             return View(jssdkUiPackage);
         }
 
@@ -634,12 +639,13 @@ namespace Web.Controllers
                     tb_User user = DbSession.Default.From<tb_User>().Where(tb_User._.OpenId == Session["ID"].ToString()).ToFirst();
                     if (user.State == 2)
                     {
+                        SeatManage.SeatManageComm.WriteLog.Write("2");
                         message = "您的微信已经绑定帐号:" + user.CardNo + ",请勿重复绑定，如需更换请先解绑！";
                     }
                     else if (DbSession.Default.Count<tb_User>(tb_User._.SchoolNo == col["schoolNo"] && tb_User._.CardNo == col["cardNo"]) > 0)
                     {
                         //message = "对不起，此帐号已经被绑定！请联系管理员核实身份信息！";
-
+                        SeatManage.SeatManageComm.WriteLog.Write("3");
 
                         tb_User odluser = DbSession.Default.From<tb_User>().Where(tb_User._.SchoolNo == col["schoolNo"] && tb_User._.CardNo == col["cardNo"]).ToFirst();
                         odluser.Attach();
@@ -656,12 +662,16 @@ namespace Web.Controllers
                         user.ClientNo = col["clientNo"];
                         if (user.SchoolNo != null)
                         {
+                            SeatManage.SeatManageComm.WriteLog.Write("4");
                             if (user.SchoolNo != string.Empty)
                             {
+                                SeatManage.SeatManageComm.WriteLog.Write("5");
                                 user.State = 2;
                                 string msg;
                                 if (AppWebService.BasicAPI.GetUserInfo(user.SchoolNo, user.CardNo, out msg))
                                 {
+                                    SeatManage.SeatManageComm.WriteLog.Write("6");
+                                    SeatManage.SeatManageComm.WriteLog.Write(user.SchoolNo);
                                     J_GetUserInfo entity = JSONSerializer.Deserialize<J_GetUserInfo>(msg);
                                     user.Name = entity.Name;
                                     user.StudentNo = entity.StudentNo;
@@ -677,16 +687,19 @@ namespace Web.Controllers
                                 }
                                 else
                                 {
+                                    SeatManage.SeatManageComm.WriteLog.Write("7");
                                     message = "帐号绑定失败：没有查询到用户信息，请联系管理员！";
                                 }
                             }
                             else
                             {
+                                SeatManage.SeatManageComm.WriteLog.Write("8");
                                 message = "帐号绑定失败：没有查询到用户信息，请联系管理员！";
                             }
                         }
                         else
                         {
+                            SeatManage.SeatManageComm.WriteLog.Write("9");
                             message = "帐号绑定失败：没有查询到用户信息，请联系管理员！";
                         }
 
@@ -721,16 +734,19 @@ namespace Web.Controllers
                                 }
                                 else
                                 {
+                                    SeatManage.SeatManageComm.WriteLog.Write("11");
                                     message = "帐号绑定失败：没有查询到用户信息，请联系管理员！";
                                 }
                             }
                             else
                             {
+                                SeatManage.SeatManageComm.WriteLog.Write("12");
                                 message = "帐号绑定失败：没有查询到用户信息，请联系管理员！";
                             }
                         }
                         else
                         {
+                            SeatManage.SeatManageComm.WriteLog.Write("13");
                             message = "帐号绑定失败：没有查询到用户信息，请联系管理员！";
                         }
 
