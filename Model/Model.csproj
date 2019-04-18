@@ -34,7 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Dos.ORM, Version=1.10.6.7, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>E:\duncan\LifePlay项目\src\LifePlayProxySystem\DividendCalculate\lib\Dos.ORM.dll</HintPath>
+      <HintPath>..\Web\bin\Dos.ORM.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">

@@ -306,7 +306,7 @@ namespace Web.Controllers
                     bitmap.Save(path, System.Drawing.Imaging.ImageFormat.Jpeg);
                     bitmap.Dispose();
                 }
-                ViewBag.QRCodeImage = "/QRCodeImages/" + user.SchoolNo + "_" + user.CardNo + ".jpg";
+                ViewBag.QRCodeImage = "/seatwx/QRCodeImages/" + user.SchoolNo + "_" + user.CardNo + ".jpg";
             }
             catch (Exception ex)
             {
