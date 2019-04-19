@@ -9,13 +9,13 @@
     <meta name="viewport" content="width=device-width" />
     <title>预约座位</title>
     <link href="~/dist/css/frozen.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
-    <link rel="stylesheet" href="https://g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
 </head>
 <body style="background-color:white;">
     @*<section class="ui-placehold-img">
-            <span style="background-image:url(/Img/ConfirmPage.jpg)"></span>
-        </section>*@
+        <span style="background-image:url(/Img/ConfirmPage.jpg)"></span>
+    </section>*@
 
     <section class="ui-container ">
         <div class="ui-slider" id="slider1">
@@ -97,19 +97,17 @@
                                 <div class="item-title label">预约时间</div>
                                 <div id="yy_date" class="item-input">
                                     @{@DateTime.Now.ToString("HH:mm")}
-
+                                            
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li id="li_time3" style="display:none;">
-                        <div class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title label">签到时间段</div>
-                                <div class="item-input">
-                                    @{@DateTime.Now.ToString("HH:mm")}-@{@DateTime.Now.AddMinutes(ViewBag.CheckKeepTime).ToString("HH:mm")}
-                                            <
-                                            <
+                            </li>
+                            <li id="li_time3" style="display:none;">
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">签到时间段</div>
+                                        <div class="item-input">
+                                            @{@DateTime.Now.ToString("HH:mm")}-@{@DateTime.Now.AddMinutes(ViewBag.CheckKeepTime).ToString("HH:mm")}
                                         </div>
                                     </div>
                                 </div>
@@ -125,29 +123,26 @@
                             </li>
                         </ul>
                     </div>
-                </div>
-                <div class="ui-btn-wrap">
-                    <button id="btn_scan" class="ui-btn-lg ui-btn-primary " onclick="javascript:SubmitBesapeskSeat();">
-                        确认预约
-                    </button>
-                </div>
-            </section>
+        </div>
+        <div class="ui-btn-wrap">
+            <button id="btn_scan" class="ui-btn-lg ui-btn-primary " onclick="javascript:SubmitBesapeskSeat();">
+                确认预约
+            </button>
+        </div>
+    </section>
 
-            <!--分割线-->
-            @*<div class="page">
+    <!--分割线-->
 
+    
 
-                </div>*@<div class="page">
+    @*<div class="page">
+        
 
-
-            </div><div class="page">
-
-
-            </div>
-            <script type='text/javascript' src='https://g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
-            <script type='text/javascript' src='https://g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
-            <script type='text/javascript' src='https://g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
-            <script type="text/javascript">
+    </div>*@
+    <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+    <script type="text/javascript">
 
     $("#picker").picker({
         toolbarTemplate: '<header class="bar bar-nav">\
@@ -212,18 +207,17 @@
 
         function SubmitBesapeskSeat()
         {
-            alert("ok");
             var time;
-            if ($("#select_time").val() == '-1') {
+            if ($("#select_time").val() == -1) {
                 alert("请选择预约方式");
                 return;
             }
-            if ($("#select_time").val() == '1' && $("#picker").val() == "") {
+            if ($("#select_time").val() == 1 && $("#picker").val() == "") {
                 alert("请选择预约时间");
                 return;
             }
 
-            if ($("#select_time").val() == '1') {
+            if ($("#select_time").val() == 1) {
                 time = $("#picker").val();
             }
             else
@@ -233,8 +227,10 @@
 
             $.showPreloader('正在预约座位')
             setTimeout(function () {
-                window.location.href = "@Url.Action("MyReserve", "NewUser");
+                window.location.href = "@Url.Action("MyReserve", "NewUser")";
             }, 2000);
+
+         //   alert("ok");
 
             //alert($("#hid_Time").val());
             $.post("@Url.Action("SubmitBesapeskSeat", "NewUser")",
@@ -267,8 +263,8 @@
                 }
             }, "json").error(function (XMLHttpRequest, textStatus, errorThrown) { alert(XMLHttpRequest + textStatus + errorThrown); });
     }
-            </script>
-            <script src="~/dist/lib/zepto.min.js"></script>
-            <script src="~/dist/js/frozen.js"></script>
-        </body>
-    </html>
+    </script>
+    <script src="~/dist/lib/zepto.min.js"></script>
+    <script src="~/dist/js/frozen.js"></script>
+</body>
+</html>
