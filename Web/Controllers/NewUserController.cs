@@ -375,7 +375,7 @@ namespace Web.Controllers
             foreach (J_GetCanBespeakRoomInfo item in list)
             {
                 str += "<a class=\"weui-cell weui-cell_access\" href=\"/seatwx/NewUser/GetRoomBesapeakState?date=" + date + "&roomNo=" + item.RoomNo + "&roomName=" + item.RoomName + "\">" +
-                            "<div class=\"weui-cell__hd\"><img src=\"/dist/img/Seat1.png\" alt=\"\" style=\"width:20px;margin-right:5px;display:block\"></div>" +
+                            "<div class=\"weui-cell__hd\"><img src=\"/seatwx/dist/img/Seat1.png\" alt=\"\" style=\"width:20px;margin-right:5px;display:block\"></div>" +
                                   "<div class=\"weui-cell__bd\"><p>图书馆：" + item.LibraryName + "</p><p>阅览室：" + item.RoomName + "</p>" +
                                   "</div>" +
                             "<div class=\"weui - cell__ft\">去选座</div>" +
