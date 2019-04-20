@@ -58,14 +58,14 @@ namespace WeChatMsg
         {
             try
             {
-                string tempID = "WY4Z5Z0rigwhaSBl3onTma-VZC2sdTlHNviIXHV1n2s";//座位状态变更通知模板ID
-                string access_tocken = Com.IsExistAccess_Token("wx2b5a801cd0aa12c7", "42ac52963fadb13b2abff3a4c374888e");
+                string tempID = "oLdL1fEDKZsPdc9njn7V2yioHhFWpQQy1JyfxKV_NsM";//座位状态变更通知模板ID
+                string access_tocken = Com.IsExistAccess_Token("wx5c27898c83a612dc", "51fed2e73dddd6e6eabbb528c973074d");
 
                 SendTools tools = new SendTools();
                 TemplateModel m = new TemplateModel(first, keyword1, keyword2, keyword3, remark);
                 m.touser = OPENID;
                 m.template_id = tempID;
-                m.url = "http://wechat.gxchuwei.com/NewUser/MySeat";
+                m.url = "https://lib.xmu.edu.cn/seatwx/NewUser/MySeat";
                 m.topcolor = "#FF0000";
                 OpenApiResult result = tools.SendTemplateMessage(access_tocken, m);
               //  SeatManage.SeatManageComm.WriteLog.Write("msg_id" + result.msg_id + "error_code" + result.error_code + "error_msg" + result.error_msg);
@@ -76,40 +76,6 @@ namespace WeChatMsg
                 SeatManage.SeatManageComm.WriteLog.Write(ex.ToString());
             }
         }
-
-        #region MyRegion
-        //string json = "{"+
-        //                    " \"touser\": \""+ OPENID + "\","+
-        //                    " \"template_id\": \""+ tempID + "\","+
-        //                    " \"url\": \"http://wechat.gxchuwei.com/User/SeatState\"," +
-        //                    " \"topcolor\": \"#FF0000\","+
-        //                    " \"data\": { "+
-        //                        " \"first\": {" +
-        //                                    " \"value\":\""+ first + "\","+
-        //                                    " \"color\":\"#173177\""+
-        //                                " }," +
-        //                         " \"keyword1\": {" +
-        //                                    " \"value\":\""+ keyword1 + "\"," +
-        //                                    " \"color\":\"#173177\"" +
-        //                                " }," +
-        //                          " \"keyword2\": {" +
-        //                                    " \"value\":\""+ keyword2 + "\"," +
-        //                                    " \"color\":\"#173177\"" +
-        //                                " }," +
-        //                          " \"keyword3\": {" +
-        //                                    " \"value\":\""+ keyword3 + "\"," +
-        //                                    " \"color\":\"#173177\"" +
-        //                                " }," +
-        //                          " \"remark\": {" +
-        //                                    " \"value\":\""+ remark + "\"," +
-        //                                    " \"color\":\"#173177\"" +
-        //                                " }" +
-        //                          " } " +
-        //                    " }";
-        //SeatManage.SeatManageComm.WriteLog.Write(json);
-        //string ret = new Com().HttpPost("https://api.weixin.qq.com/cgi-bin/message/template/send?access_token="+ access_tocken + "", json);
-        //SeatManage.SeatManageComm.WriteLog.Write(ret);
-        #endregion
 
 
         public bool IsReusable

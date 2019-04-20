@@ -81,7 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="MsgHandler.ashx" />
-    <None Include="Properties\PublishProfiles\wechatmsg.pubxml" />
+    <None Include="Properties\PublishProfiles\1.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
