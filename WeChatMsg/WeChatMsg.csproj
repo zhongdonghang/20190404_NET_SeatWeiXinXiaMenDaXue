@@ -67,6 +67,7 @@
     <Content Include="XMLFile.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AESAlgorithm.cs" />
     <Compile Include="LoginForm.aspx.cs">
       <DependentUpon>LoginForm.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
