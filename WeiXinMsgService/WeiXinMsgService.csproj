@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Com.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SqlTools.cs" />
     <Compile Include="Template\JsonHelper.cs" />
     <Compile Include="Template\OpenApiResult.cs" />
     <Compile Include="Template\SendTools.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="WeiXinJKPram.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="lib\Dos.ORM.dll" />
     <Content Include="lib\Newtonsoft.Json.dll" />
     <Content Include="lib\Newtonsoft.Json.xml" />
     <Content Include="lib\Senparc.CO2NET.dll" />

@@ -21,13 +21,11 @@ namespace WeChatMsg
 
         public void ProcessRequest(HttpContext context)
         {
-            SeatManage.SeatManageComm.WriteLog.Write("1:ProcessRequest" );
 
             this.context = context;
             context.Response.ContentType = "text/plain";
             if (this.context.Request.HttpMethod == "POST")
             {
-                SeatManage.SeatManageComm.WriteLog.Write("POST");
 
                 //如果是POST请求，则响应请求内容
                 // ResponseMsg(string OPENID,string first,string keyword1,string keyword2,string keyword3,string remark)
@@ -37,7 +35,28 @@ namespace WeChatMsg
                     //SchoolNum=201812221&StudentNo=30320182200067&MsgType=UserOperation&Room=玉堂&SeatNo=151&AddTime=2019-04-22 16:17:12&EndTime=&Days=VRType=&Msg=在终端20181222111手动选择，玉堂，151号座位
 
                     string[] kv =  msg.Split('&');
-                    
+                    string SchoolNum = kv[0].Split('=')[1];
+                    string StudentNo = kv[1].Split('=')[1];
+                    string MsgType = kv[2].Split('=')[1];
+                    string Room = kv[3].Split('=')[1];
+                    string SeatNo = kv[4].Split('=')[1];
+                    string AddTime = kv[5].Split('=')[1];
+                    string EndTime = kv[6].Split('=')[1];
+                    string Msg = kv[8].Split('=')[1];
+
+                    //  SeatManage.SeatManageComm.WriteLog.Write(SchoolNum + "$$$$" + StudentNo + "$$$$" + MsgType + "$$$$" + Room + "$$$$" + SeatNo + "$$$$" + AddTime+"$$$"+EndTime+"$$$"+ Msg + "-----结束#######");
+
+                    string OPENID = SqlTools.GetOpenId(StudentNo, SchoolNum);
+                    string first = "您的座位状态发生改变";//context.Request.Params["first"].ToString();
+                    string keyword1 = Room;//context.Request.Params["keyword1"].ToString();
+                    string keyword2 = SeatNo;//context.Request.Params["keyword2"].ToString();
+                    string keyword3 = AddTime;//context.Request.Params["keyword3"].ToString();
+                    string remark = Msg;//context.Request.Params["remark"].ToString();
+
+
+                    SeatManage.SeatManageComm.WriteLog.Write("OPENID:" + OPENID);
+                    ResponseMsg(OPENID, first, keyword1, keyword2, keyword3, remark);
+
                     // SeatManage.SeatManageComm.WriteLog.Write(msg);
                     /* 广西楚惟服务器的算法
                     string OPENID = context.Request.Params["OPENID"].ToString();
@@ -58,7 +77,6 @@ namespace WeChatMsg
             }
             else if (this.context.Request.HttpMethod == "GET")//如果是Get请求，则是接入验证，返回随机字符串。
             {
-                SeatManage.SeatManageComm.WriteLog.Write("3:GET");
                 signature = context.Request.Params["signature"];
                 timestamp = context.Request.Params["timestamp"];
                 nonce = context.Request.Params["nonce"];
@@ -66,13 +84,13 @@ namespace WeChatMsg
                 
                 if (!service.CheckSignature(signature, timestamp, nonce))//验证请求是否微信发过来的。
                 {//不是则结束响应
-                    SeatManage.SeatManageComm.WriteLog.Write("signature:"+ signature);
-                    SeatManage.SeatManageComm.WriteLog.Write("timestamp:"+ timestamp);
-                    SeatManage.SeatManageComm.WriteLog.Write("nonce:"+ nonce);
+                    //SeatManage.SeatManageComm.WriteLog.Write("signature:"+ signature);
+                    //SeatManage.SeatManageComm.WriteLog.Write("timestamp:"+ timestamp);
+                    //SeatManage.SeatManageComm.WriteLog.Write("nonce:"+ nonce);
                     SeatManage.SeatManageComm.WriteLog.Write("no CheckSignature");
                     this.context.Response.End();
                 }
-                SeatManage.SeatManageComm.WriteLog.Write("CheckSignature%%%%CheckSignature");
+               // SeatManage.SeatManageComm.WriteLog.Write("CheckSignature%%%%CheckSignature");
                 context.Response.Write(echostr);
             }
         }
@@ -82,7 +100,7 @@ namespace WeChatMsg
         {
             try
             {
-                SeatManage.SeatManageComm.WriteLog.Write("4:ResponseMsg");
+              //  SeatManage.SeatManageComm.WriteLog.Write("4:ResponseMsg");
                 string tempID = "oLdL1fEDKZsPdc9njn7V2yioHhFWpQQy1JyfxKV_NsM";//座位状态变更通知模板ID
                 string access_tocken = Com.IsExistAccess_Token("wx5c27898c83a612dc", "51fed2e73dddd6e6eabbb528c973074d");
 
@@ -93,7 +111,7 @@ namespace WeChatMsg
                 m.url = "https://lib.xmu.edu.cn/seatwx/NewUser/MySeat";
                 m.topcolor = "#FF0000";
                 OpenApiResult result = tools.SendTemplateMessage(access_tocken, m);
-                SeatManage.SeatManageComm.WriteLog.Write("msg_id" + result.msg_id + "error_code" + result.error_code + "error_msg" + result.error_msg);
+               // SeatManage.SeatManageComm.WriteLog.Write("msg_id" + result.msg_id + "error_code" + result.error_code + "error_msg" + result.error_msg);
 
             }
             catch (Exception ex)
