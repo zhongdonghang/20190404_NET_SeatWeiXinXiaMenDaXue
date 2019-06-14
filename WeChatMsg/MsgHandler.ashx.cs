@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using WeiXinMsgService;
+using WeiXinMsgService.OutMsg;
 using WeiXinMsgService.Template;
 
 namespace WeChatMsg
@@ -31,43 +33,60 @@ namespace WeChatMsg
                 // ResponseMsg(string OPENID,string first,string keyword1,string keyword2,string keyword3,string remark)
                 try
                 {
-                   string msg = AESAlgorithm.AESDecrypt(context.Request.Params["msg"]);
-                    //SchoolNum=201812221&StudentNo=30320182200067&MsgType=UserOperation&Room=玉堂&SeatNo=151&AddTime=2019-04-22 16:17:12&EndTime=&Days=VRType=&Msg=在终端20181222111手动选择，玉堂，151号座位
+                    if (context.Request.Params["msg"] != null)//座位系统自身消息
+                    {
+                        string msg = AESAlgorithm.AESDecrypt(context.Request.Params["msg"]);
+                        string[] kv = msg.Split('&');
+                        string SchoolNum = kv[0].Split('=')[1];
+                        string StudentNo = kv[1].Split('=')[1];
+                        string MsgType = kv[2].Split('=')[1];
+                        string Room = kv[3].Split('=')[1];
+                        string SeatNo = kv[4].Split('=')[1];
+                        string AddTime = kv[5].Split('=')[1];
+                        string EndTime = kv[6].Split('=')[1];
+                        string Msg = kv[8].Split('=')[1];
+                        string OPENID = SqlTools.GetOpenId(StudentNo);
+                        string first = "您的座位状态发生改变";//context.Request.Params["first"].ToString();
+                        string keyword1 = Room;//context.Request.Params["keyword1"].ToString();
+                        string keyword2 = SeatNo;//context.Request.Params["keyword2"].ToString();
+                        string keyword3 = AddTime;//context.Request.Params["keyword3"].ToString();
+                        string remark = Msg;//context.Request.Params["remark"].ToString();
+                        SeatManage.SeatManageComm.WriteLog.Write("OPENID:" + OPENID);
+                        ResponseMsg(OPENID, first, keyword1, keyword2, keyword3, remark);
+                    }
+                    else if (context.Request.Params["IsOutMsg"] != null)//座位系统系统外部消息
+                    {
+                        string msgType = context.Request.Params["MsgType"].ToString();//消息类型
+                        string msgReturnURL = context.Request.Params["MsgReturnURL"].ToString();//点击消息跳转url
+                        string toReader = context.Request.Params["ToReader"].ToString();//发送到的读者学工号，多个读者用逗号隔开
+                        switch (msgType)
+                        {
+                            case "OverdueNotice"://图书馆超期催还通知
+                                string first = context.Request.Params["Content"].Trim();
+                                string keyword1 = context.Request.Params["StudentName"].Trim();
+                                string keyword2 = context.Request.Params["BookName"].Trim();
+                                string keyword3 = context.Request.Params["BarCode"].Trim();
+                                string keyword4 = context.Request.Params["GiveBackDate"].Trim();
+                                string keyword5 = context.Request.Params["OverdueDates"].Trim();
+                                string remark = context.Request.Params["Remark"].Trim();
 
-                    string[] kv =  msg.Split('&');
-                    string SchoolNum = kv[0].Split('=')[1];
-                    string StudentNo = kv[1].Split('=')[1];
-                    string MsgType = kv[2].Split('=')[1];
-                    string Room = kv[3].Split('=')[1];
-                    string SeatNo = kv[4].Split('=')[1];
-                    string AddTime = kv[5].Split('=')[1];
-                    string EndTime = kv[6].Split('=')[1];
-                    string Msg = kv[8].Split('=')[1];
-
-                    //  SeatManage.SeatManageComm.WriteLog.Write(SchoolNum + "$$$$" + StudentNo + "$$$$" + MsgType + "$$$$" + Room + "$$$$" + SeatNo + "$$$$" + AddTime+"$$$"+EndTime+"$$$"+ Msg + "-----结束#######");
-
-                    string OPENID = SqlTools.GetOpenId(StudentNo, SchoolNum);
-                    string first = "您的座位状态发生改变";//context.Request.Params["first"].ToString();
-                    string keyword1 = Room;//context.Request.Params["keyword1"].ToString();
-                    string keyword2 = SeatNo;//context.Request.Params["keyword2"].ToString();
-                    string keyword3 = AddTime;//context.Request.Params["keyword3"].ToString();
-                    string remark = Msg;//context.Request.Params["remark"].ToString();
-
-
-                    SeatManage.SeatManageComm.WriteLog.Write("OPENID:" + OPENID);
-                    ResponseMsg(OPENID, first, keyword1, keyword2, keyword3, remark);
-
-                    // SeatManage.SeatManageComm.WriteLog.Write(msg);
-                    /* 广西楚惟服务器的算法
-                    string OPENID = context.Request.Params["OPENID"].ToString();
-                    string first = context.Request.Params["first"].ToString();
-                    string keyword1 = context.Request.Params["keyword1"].ToString();
-                    string keyword2 = context.Request.Params["keyword2"].ToString();
-                    string keyword3 = context.Request.Params["keyword3"].ToString();
-                    string remark = context.Request.Params["remark"].ToString();
-                    SeatManage.SeatManageComm.WriteLog.Write(OPENID + "$$$$" + first + "$$$$" + keyword1 + "$$$$" + keyword2 + "$$$$" + keyword3 + "$$$$" + remark);
-                    ResponseMsg(OPENID, first, keyword1, keyword2, keyword3, remark);
-                    */
+                                ResponseOverdueNoticeMsg(toReader, first, keyword1, keyword2, keyword3, keyword4, keyword5, remark);
+                                break;
+                            case "GiveBackBookNotice"://还书通知
+                                break;
+                            case "BooksToLibraryNotice"://委托图书到馆通知
+                                break;
+                            case "GiveBackBookSucceedNotice"://成功还书通知
+                                break;
+                            case "ActivityToBeginningNotice"://活动即将开始提醒
+                                break;
+                            case "BorrowBooksSucceedNotice"://图书馆借书成功通知
+                                break;
+                            default:
+                                SeatManage.SeatManageComm.WriteLog.Write("未知消息类型:"+ msgType + "，请检查请求参数");
+                                break;
+                        }
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -83,19 +102,87 @@ namespace WeChatMsg
                 echostr = context.Request.Params["echostr"];
                 
                 if (!service.CheckSignature(signature, timestamp, nonce))//验证请求是否微信发过来的。
-                {//不是则结束响应
-                    //SeatManage.SeatManageComm.WriteLog.Write("signature:"+ signature);
-                    //SeatManage.SeatManageComm.WriteLog.Write("timestamp:"+ timestamp);
-                    //SeatManage.SeatManageComm.WriteLog.Write("nonce:"+ nonce);
-                    SeatManage.SeatManageComm.WriteLog.Write("no CheckSignature");
+                {
                     this.context.Response.End();
                 }
-               // SeatManage.SeatManageComm.WriteLog.Write("CheckSignature%%%%CheckSignature");
                 context.Response.Write(echostr);
             }
         }
 
 
+        #region 发送外部消息
+        /// <summary>
+        /// 图书馆超期催还通知
+        /// </summary>
+        private void ResponseOverdueNoticeMsg(string toReaders,string first,string keyword1,string keyword2,string keyword3,string keyword4,string keyword5,string remark)
+        {
+            string tempID = ConfigurationManager.AppSettings["OverdueNoticeID"];//模板ID
+            string access_tocken = Com.IsExistAccess_Token(ConfigurationManager.AppSettings["AppID"], ConfigurationManager.AppSettings["AppSecret"]);
+            SendTools tools = new SendTools();
+            OverdueNoticeTempData data = new OverdueNoticeTempData();
+            data.first = new TempItem(first);
+            data.keyword1 = new TempItem(keyword1);
+            data.keyword2 = new TempItem(keyword2);
+            data.keyword3 = new TempItem(keyword3);
+            data.keyword4 = new TempItem(keyword4);
+            data.keyword5 = new TempItem(keyword5);
+            data.remark = new TempItem(remark);
+            TempModel model = new TempModel();
+            model.objOverdueNoticeTempData = data;
+            model.template_id = tempID;
+            model.url = ConfigurationManager.AppSettings["OverdueNotice_URL"];
+            model.topcolor = "#FF0000";
+
+            //处理学号toReaders，逗号隔开
+            string[] readers = toReaders.Split(',');
+            foreach (var item in readers)
+            {
+                string OPENID = SqlTools.GetOpenId(item);
+                if (OPENID != "")
+                {
+                    model.touser = OPENID;
+                    OpenApiResult result = tools.SendTempMessage(access_tocken, model);
+                }
+            }
+        }
+        /// <summary>
+        /// 还书通知
+        /// </summary>
+        private void ResponseGiveBackBookNoticeMsg(string toReaders)
+        {
+
+        }
+        /// <summary>
+        /// 委托图书到馆通知
+        /// </summary>
+        private void ResponseBooksToLibraryNoticeMsg(string toReaders)
+        {
+
+        }
+        /// <summary>
+        /// 成功还书通知
+        /// </summary>
+        private void ResponseGiveBackBookSucceedNoticeMsg(string toReaders)
+        {
+
+        }
+        /// <summary>
+        /// 活动即将开始提醒
+        /// </summary>
+        private void ResponseActivityToBeginningNoticeMsg(string toReaders)
+        {
+
+        }
+        /// <summary>
+        /// 图书馆借书成功通知
+        /// </summary>
+        private void ResponseBorrowBooksSucceedNoticeMsg(string toReaders)
+        {
+
+        }
+        #endregion
+
+        //发送内部消息
         private void ResponseMsg(string OPENID,string first,string keyword1,string keyword2,string keyword3,string remark)
         {
             try

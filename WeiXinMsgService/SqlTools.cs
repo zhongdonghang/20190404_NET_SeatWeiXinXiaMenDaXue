@@ -9,13 +9,13 @@ namespace WeiXinMsgService
 {
     public  class SqlTools
     {
-        public static string GetOpenId(string studentNo,string schoolNo )
+        public static string GetOpenId(string studentNo )
         {
             string result = string.Empty;
             using (SqlConnection cn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["DosConn"].ToString()))
             {
                 cn.Open();
-                string sql = "select * from  [dbo].[tb_User] where SchoolNo = '" + schoolNo + "' and StudentNo ='" + studentNo + "'";
+                string sql = "select * from  [dbo].[tb_User] where SchoolNo = '201812221' and StudentNo ='" + studentNo + "'";
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 Object obj = cmd.ExecuteScalar();
                 result = obj == null ? "" : obj.ToString();

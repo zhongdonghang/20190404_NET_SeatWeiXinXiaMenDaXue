@@ -5,6 +5,9 @@ using System.Text;
 
 namespace WeiXinMsgService.Template
 {
+    /// <summary>
+    /// 座位变更通知
+    /// </summary>
     public class TemplateData
     {
         public TempItem first { get; set; }
