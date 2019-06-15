@@ -57,30 +57,63 @@ namespace WeChatMsg
                     else if (context.Request.Params["IsOutMsg"] != null)//座位系统系统外部消息
                     {
                         string msgType = context.Request.Params["MsgType"].ToString();//消息类型
-                        string msgReturnURL = context.Request.Params["MsgReturnURL"].ToString();//点击消息跳转url
+                       // string msgReturnURL = context.Request.Params["MsgReturnURL"].ToString();//点击消息跳转url
                         string toReader = context.Request.Params["ToReader"].ToString();//发送到的读者学工号，多个读者用逗号隔开
                         switch (msgType)
                         {
                             case "OverdueNotice"://图书馆超期催还通知
-                                string first = context.Request.Params["Content"].Trim();
-                                string keyword1 = context.Request.Params["StudentName"].Trim();
-                                string keyword2 = context.Request.Params["BookName"].Trim();
-                                string keyword3 = context.Request.Params["BarCode"].Trim();
-                                string keyword4 = context.Request.Params["GiveBackDate"].Trim();
-                                string keyword5 = context.Request.Params["OverdueDates"].Trim();
-                                string remark = context.Request.Params["Remark"].Trim();
-
-                                ResponseOverdueNoticeMsg(toReader, first, keyword1, keyword2, keyword3, keyword4, keyword5, remark);
+                                string OverdueNoticefirst = context.Request.Params["Content"].Trim();
+                                string OverdueNoticekeyword1 = context.Request.Params["StudentName"].Trim();
+                                string OverdueNoticekeyword2 = context.Request.Params["BookName"].Trim();
+                                string OverdueNoticekeyword3 = context.Request.Params["BarCode"].Trim();
+                                string OverdueNoticekeyword4 = context.Request.Params["GiveBackDate"].Trim();
+                                string OverdueNoticekeyword5 = context.Request.Params["OverdueDates"].Trim();
+                                string OverdueNoticeremark = context.Request.Params["Remark"].Trim();
+                                ResponseOverdueNoticeMsg(toReader, OverdueNoticefirst, OverdueNoticekeyword1, OverdueNoticekeyword2, OverdueNoticekeyword3, OverdueNoticekeyword4, OverdueNoticekeyword5, OverdueNoticeremark);
                                 break;
                             case "GiveBackBookNotice"://还书通知
+                                string GiveBackBookNoticefirst = context.Request.Params["Content"].Trim();
+                                string GiveBackBookNoticename = context.Request.Params["StudentName"].Trim();
+                                string GiveBackBookNoticedate = context.Request.Params["GiveBackDate"].Trim();
+                                string GiveBackBookNoticeremark = context.Request.Params["Remark"].Trim();
+                                ResponseGiveBackBookNoticeMsg(toReader, GiveBackBookNoticefirst, GiveBackBookNoticename, GiveBackBookNoticedate, GiveBackBookNoticeremark);
                                 break;
                             case "BooksToLibraryNotice"://委托图书到馆通知
+                                string BooksToLibraryNoticefirst = context.Request.Params["Content"].Trim();
+                                string BooksToLibraryNoticekeyword1 = context.Request.Params["BookName"].Trim();
+                                string BooksToLibraryNoticekeyword2 = context.Request.Params["ArriveDate"].Trim();
+                                string BooksToLibraryNoticeremark = context.Request.Params["Remark"].Trim();
+                                ResponseBooksToLibraryNoticeMsg(toReader, BooksToLibraryNoticefirst, BooksToLibraryNoticekeyword1, BooksToLibraryNoticekeyword2, BooksToLibraryNoticeremark);
                                 break;
                             case "GiveBackBookSucceedNotice"://成功还书通知
+                                string GiveBackBookSucceedNoticefirst = context.Request.Params["Content"].Trim();
+                                string GiveBackBookSucceedNoticekeyword1 = context.Request.Params["BookName"].Trim();
+                                string GiveBackBookSucceedNoticekeyword2 = context.Request.Params["ReturnDate"].Trim();
+                                string GiveBackBookSucceedNoticekeyword3 = context.Request.Params["ShouldReturnDate"].Trim();
+                                string GiveBackBookSucceedNoticekeyword4 = context.Request.Params["BorrowAddress"].Trim();
+                                string GiveBackBookSucceedNoticeremark = context.Request.Params["Remark"].Trim();
+                                ResponseGiveBackBookSucceedNoticeMsg(toReader, GiveBackBookSucceedNoticefirst, GiveBackBookSucceedNoticekeyword1,
+                                    GiveBackBookSucceedNoticekeyword2, GiveBackBookSucceedNoticekeyword3, GiveBackBookSucceedNoticekeyword4, GiveBackBookSucceedNoticeremark);
                                 break;
                             case "ActivityToBeginningNotice"://活动即将开始提醒
+                                string ActivityToBeginningNoticefirst = context.Request.Params["Content"].Trim();
+                                string ActivityToBeginningNoticekeyword1 = context.Request.Params["StudentName"].Trim();
+                                string ActivityToBeginningNoticekeyword2 = context.Request.Params["Organizer"].Trim();
+                                string ActivityToBeginningNoticekeyword3 = context.Request.Params["ActivityTime"].Trim();
+                                string ActivityToBeginningNoticekeyword4 = context.Request.Params["ActivityAddress"].Trim();
+                                string ActivityToBeginningNoticeremark = context.Request.Params["Remark"].Trim();
+                                ResponseActivityToBeginningNoticeMsg(toReader, ActivityToBeginningNoticefirst, ActivityToBeginningNoticekeyword1, ActivityToBeginningNoticekeyword2,
+                                    ActivityToBeginningNoticekeyword3, ActivityToBeginningNoticekeyword4, ActivityToBeginningNoticeremark);
                                 break;
                             case "BorrowBooksSucceedNotice"://图书馆借书成功通知
+                                string BorrowBooksSucceedNoticefirst = context.Request.Params["Content"].Trim();
+                                string BorrowBooksSucceedNoticekeyword1 = context.Request.Params["BookName"].Trim();
+                                string BorrowBooksSucceedNoticekeyword2 = context.Request.Params["BorrowDate"].Trim();
+                                string BorrowBooksSucceedNoticekeyword3 = context.Request.Params["GiveBackDate"].Trim();
+                                string BorrowBooksSucceedNoticekeyword4 = context.Request.Params["BorrowAddress"].Trim();
+                                string BorrowBooksSucceedNoticeremark = context.Request.Params["Remark"].Trim();
+                                ResponseBorrowBooksSucceedNoticeMsg(toReader, BorrowBooksSucceedNoticefirst, BorrowBooksSucceedNoticekeyword1,
+                                    BorrowBooksSucceedNoticekeyword2, BorrowBooksSucceedNoticekeyword3, BorrowBooksSucceedNoticekeyword4, BorrowBooksSucceedNoticeremark);
                                 break;
                             default:
                                 SeatManage.SeatManageComm.WriteLog.Write("未知消息类型:"+ msgType + "，请检查请求参数");
@@ -148,37 +181,163 @@ namespace WeChatMsg
         /// <summary>
         /// 还书通知
         /// </summary>
-        private void ResponseGiveBackBookNoticeMsg(string toReaders)
+        private void ResponseGiveBackBookNoticeMsg(string toReaders,string first,string name ,string date,string remark)
         {
-
+            string tempID = ConfigurationManager.AppSettings["GiveBackBookNoticeID"];//模板ID
+            string access_tocken = Com.IsExistAccess_Token(ConfigurationManager.AppSettings["AppID"], ConfigurationManager.AppSettings["AppSecret"]);
+            SendTools tools = new SendTools();
+            GiveBackBookNoticeTempData data = new GiveBackBookNoticeTempData();
+            data.first = new TempItem(first);
+            data.name = new TempItem(name);
+            data.date = new TempItem(date);
+            data.remark = new TempItem(remark);
+            TempModel model = new TempModel();
+            model.objGiveBackBookNoticeTempData = data;
+            model.template_id = tempID;
+            model.url = ConfigurationManager.AppSettings["GiveBackBookNotice_URL"];
+            model.topcolor = "#FF0000";
+            //处理学号toReaders，逗号隔开
+            string[] readers = toReaders.Split(',');
+            foreach (var item in readers)
+            {
+                string OPENID = SqlTools.GetOpenId(item);
+                if (OPENID != "")
+                {
+                    model.touser = OPENID;
+                    OpenApiResult result = tools.SendTempMessage(access_tocken, model);
+                }
+            }
         }
         /// <summary>
         /// 委托图书到馆通知
         /// </summary>
-        private void ResponseBooksToLibraryNoticeMsg(string toReaders)
+        private void ResponseBooksToLibraryNoticeMsg(string toReaders,string first,string keyword1,string keyword2,string remark)
         {
+            string tempID = ConfigurationManager.AppSettings["BooksToLibraryNoticeID"];//模板ID
+            string access_tocken = Com.IsExistAccess_Token(ConfigurationManager.AppSettings["AppID"], ConfigurationManager.AppSettings["AppSecret"]);
+            SendTools tools = new SendTools();
+            BooksToLibraryNoticeTempData data = new BooksToLibraryNoticeTempData();
 
+            data.first = new TempItem(first);
+            data.keyword1 = new TempItem(keyword1);
+            data.keyword2 = new TempItem(keyword2);
+            data.remark = new TempItem(remark);
+            TempModel model = new TempModel();
+            model.objBooksToLibraryNoticeTempData = data;
+            model.template_id = tempID;
+            model.url = ConfigurationManager.AppSettings["BooksToLibraryNotice_URL"];
+            model.topcolor = "#FF0000";
+            //处理学号toReaders，逗号隔开
+            string[] readers = toReaders.Split(',');
+            foreach (var item in readers)
+            {
+                string OPENID = SqlTools.GetOpenId(item);
+                if (OPENID != "")
+                {
+                    model.touser = OPENID;
+                    OpenApiResult result = tools.SendTempMessage(access_tocken, model);
+                }
+            }
         }
         /// <summary>
         /// 成功还书通知
         /// </summary>
-        private void ResponseGiveBackBookSucceedNoticeMsg(string toReaders)
+        private void ResponseGiveBackBookSucceedNoticeMsg(string toReaders,string first,string keyword1,string keyword2,string keyword3,string keyword4,string remark)
         {
-
+            string tempID = ConfigurationManager.AppSettings["GiveBackBookSucceedNoticeID"];//模板ID
+            string access_tocken = Com.IsExistAccess_Token(ConfigurationManager.AppSettings["AppID"], ConfigurationManager.AppSettings["AppSecret"]);
+            SendTools tools = new SendTools();
+            GiveBackBookSucceedNoticeTempData data = new GiveBackBookSucceedNoticeTempData();
+            data.first = new TempItem(first);
+            data.keyword1 = new TempItem(keyword1);
+            data.keyword2 = new TempItem(keyword2);
+            data.keyword3 = new TempItem(keyword3);
+            data.keyword4 = new TempItem(keyword4);
+            data.remark = new TempItem(remark);
+            TempModel model = new TempModel();
+            model.objGiveBackBookSucceedNoticeTempData = data;
+            model.template_id = tempID;
+            model.url = ConfigurationManager.AppSettings["GiveBackBookSucceedNotice_URL"];
+            model.topcolor = "#FF0000";
+            //处理学号toReaders，逗号隔开
+            string[] readers = toReaders.Split(',');
+            foreach (var item in readers)
+            {
+                string OPENID = SqlTools.GetOpenId(item);
+                if (OPENID != "")
+                {
+                    model.touser = OPENID;
+                    OpenApiResult result = tools.SendTempMessage(access_tocken, model);
+                }
+            }
         }
         /// <summary>
         /// 活动即将开始提醒
         /// </summary>
-        private void ResponseActivityToBeginningNoticeMsg(string toReaders)
+        private void ResponseActivityToBeginningNoticeMsg(string toReaders,string first,string keyword1,string keyword2,string keyword3,string keyword4,string remark)
         {
+            string tempID = ConfigurationManager.AppSettings["ActivityToBeginningNoticeID"];//模板ID
+            string access_tocken = Com.IsExistAccess_Token(ConfigurationManager.AppSettings["AppID"], ConfigurationManager.AppSettings["AppSecret"]);
+            SendTools tools = new SendTools();
+            ActivityToBeginningNoticeTempData data = new ActivityToBeginningNoticeTempData();
 
+            data.first = new TempItem(first);
+            data.keyword1 = new TempItem(keyword1);
+            data.keyword2 = new TempItem(keyword2);
+            data.keyword3 = new TempItem(keyword3);
+            data.keyword4 = new TempItem(keyword4);
+            data.remark = new TempItem(remark);
+
+            TempModel model = new TempModel();
+            model.objActivityToBeginningNoticeTempData = data;
+            model.template_id = tempID;
+            model.url = ConfigurationManager.AppSettings["ActivityToBeginningNotice_URL"];
+            model.topcolor = "#FF0000";
+            //处理学号toReaders，逗号隔开
+            string[] readers = toReaders.Split(',');
+            foreach (var item in readers)
+            {
+                string OPENID = SqlTools.GetOpenId(item);
+                if (OPENID != "")
+                {
+                    model.touser = OPENID;
+                    OpenApiResult result = tools.SendTempMessage(access_tocken, model);
+                }
+            }
         }
         /// <summary>
         /// 图书馆借书成功通知
         /// </summary>
-        private void ResponseBorrowBooksSucceedNoticeMsg(string toReaders)
+        private void ResponseBorrowBooksSucceedNoticeMsg(string toReaders,string first,string keyword1,string keyword2,string keyword3,string keyword4,string remark)
         {
+            string tempID = ConfigurationManager.AppSettings["BorrowBooksSucceedID"];//模板ID
+            string access_tocken = Com.IsExistAccess_Token(ConfigurationManager.AppSettings["AppID"], ConfigurationManager.AppSettings["AppSecret"]);
+            SendTools tools = new SendTools();
+            ActivityToBeginningNoticeTempData data = new ActivityToBeginningNoticeTempData();
 
+            data.first = new TempItem(first);
+            data.keyword1 = new TempItem(keyword1);
+            data.keyword2 = new TempItem(keyword2);
+            data.keyword3 = new TempItem(keyword3);
+            data.keyword4 = new TempItem(keyword4);
+            data.remark = new TempItem(remark);
+
+            TempModel model = new TempModel();
+            model.objActivityToBeginningNoticeTempData = data;
+            model.template_id = tempID;
+            model.url = ConfigurationManager.AppSettings["BorrowBooksSucceed_URL"];
+            model.topcolor = "#FF0000";
+            //处理学号toReaders，逗号隔开
+            string[] readers = toReaders.Split(',');
+            foreach (var item in readers)
+            {
+                string OPENID = SqlTools.GetOpenId(item);
+                if (OPENID != "")
+                {
+                    model.touser = OPENID;
+                    OpenApiResult result = tools.SendTempMessage(access_tocken, model);
+                }
+            }
         }
         #endregion
 
